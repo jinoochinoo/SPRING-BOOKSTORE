@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.member">
+	<!-- resultMap 설정 -->
+	<resultMap type="memberResult" id="MemberVO">
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+		<result property="member_name" column="member_name" />
+		<result property="member_email" column="member_email" />		
+		<result property="sms_YN" column="sms_YN" />
+		<result property="zipcode" column="zipcode" />
+		<result property="address" column="address" />
+		<result property="joindate" column="joindate" />
+		<result property="del_YN" column="del_YN" />
+	</resultMap>
+	
+	<insert id="insertNewMember" parameterType="memberVO">
+		<![CDATA[
+			insert into shopping_member(
+			member_id,
+			member_pw,
+			member_name,
+			member_email,
+			sms_YN,
+			zipcode,
+			address,
+			joindate,
+			del_YN)
+			values(
+			#{member_id},
+			#{member_pw},
+			#{member_name},
+			#{member_email},
+			#{sms_YN},
+			#{zipcode},
+			#{address},
+			#{joindate},
+			#{del_YN})
+		]]>
+	</insert>
+	
+</mapper>
