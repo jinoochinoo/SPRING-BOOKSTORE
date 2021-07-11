@@ -74,11 +74,11 @@ function fn_overlapped(){
        dataType:"text",
        data: {id:_id},
        success:function (data,textStatus){
-          if(data=='false'){
+          if(data == "false"){
        	    alert("사용할 수 있는 ID입니다.");
-       	    $('#btnOverlapped').prop("disabled", true);
-       	    $('#_member_id').prop("disabled", true);
-       	    $('#member_id').val(_id);
+       	    $("#btnOverlapped").prop("disabled", true);
+       	    $("#_member_id").prop("disabled", true);
+       	    $("#member_id").val(_id);
           }else{
         	  alert("사용할 수 없는 ID입니다.");
           }
@@ -87,7 +87,6 @@ function fn_overlapped(){
           alert("에러가 발생했습니다.");ㅣ
        },
        complete:function(data,textStatus){
-          //alert("작업을완료 했습니다");
        }
     });  //end ajax	 
  }	

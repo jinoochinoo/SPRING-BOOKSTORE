@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.order">
+<!-- 리절트 맵 정의 -->	
+	<resultMap id="orderGoodsResult" type="OrderVO">
+	    <result property="order_seq_num" column="order_seq_num" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_title" column="goods_title" />
+		<result property="goods_sales_price" column="goods_sales_price" />
+		<result property="order_total_price" column="order_total_price" />
+		<result property="order_goods_qty" column="order_goods_qty" />
+		
+		<result property="orderer_name" column="orderer_name" />
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_hp1" column="receiver_hp1" />
+		<result property="receiver_hp2" column="receiver_hp2" />
+		<result property="receiver_hp3" column="receiver_hp3" />
+		
+		<result property="delivery_address" column="delivery_address" />
+		<result property="delivery_method" column="delivery_method" />
+		<result property="pay_method" column="pay_method" />
+		<result property="card_com_name" column="card_com_name" />
+		<result property="card_pay_month" column="card_pay_month" />
+		
+		<result property="pay_orderer_hp_num" column="pay_orderer_hp_num" />
+		<result property="final_total_price" column="final_total_price" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="orderer_hp" column="orderer_hp" />
+		<result property="goods_fileName" column="goods_fileName" />
+	</resultMap>
+	
+	 <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
+	    <![CDATA[
+			select * 
+			from shopping_order
+			where member_id=#{member_id}
+		]]>
+	</select>
+	<insert id="insertNewOrder" parameterType="orderVO"  >
+	    <selectKey resultType="int" keyProperty="order_seq_num" order="BEFORE">
+	    	select order_seq_num.nextval from dual
+	    </selectKey>
+	    <![CDATA[
+			insert into 
+			shopping_order(order_seq_num,
+			                            order_id,
+										member_id,
+									    goods_id,
+									    goods_title,
+									    goods_fileName,
+									    order_goods_qty,
+									    goods_sales_price,
+									    orderer_name,
+									    receiver_name,
+									    receiver_hp1,
+					                    receiver_hp2,
+					                    receiver_hp3,
+					                    delivery_address,
+					                    delivery_method,
+						                pay_method,
+						                card_com_name,
+						                card_pay_month,
+						                orderer_hp,
+						                pay_orderer_hp_num)
+							     values(#{order_seq_num},
+							            #{order_id},
+									    #{member_id},
+									    #{goods_id},
+									    #{goods_title},
+									    #{goods_fileName},
+									    #{order_goods_qty},
+									    #{goods_sales_price},
+									    #{orderer_name},
+									    #{receiver_name},
+									    #{receiver_hp1},
+					                    #{receiver_hp2},
+					                    #{receiver_hp3},
+					                    #{delivery_address},
+					                    #{delivery_method},
+						                #{pay_method},
+						                #{card_com_name},
+						                #{card_pay_month},
+						                #{orderer_hp},
+						                #{pay_orderer_hp_num})
+    	]]>
+	</insert>
+
+   <select id="selectOrderID" resultType="int"  >
+	    <![CDATA[
+		    select seq_order_id.nextval from dual
+    	]]>
+	</select>
+	
+	<select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
+	    <![CDATA[
+		    select * from 
+			shopping_order
+            where order_id=#{order_id}
+    	]]>
+	</select>
+	
+	<delete id="deleteGoodsFromCart" parameterType="orderVO">
+	  delete from 
+	  shopping_cart
+	  where goods_id=#{goods_id}
+	</delete>
+</mapper>

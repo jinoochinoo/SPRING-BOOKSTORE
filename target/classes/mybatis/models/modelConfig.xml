@@ -6,9 +6,9 @@
 	<typeAliases>
 		<typeAlias type="com.online.bookstore.goods.vo.GoodsVO" alias="goodsVO" />
 	    <typeAlias type="com.online.bookstore.goods.vo.ImageFileVO" alias="imageFileVO" />
-	    <typeAlias type="com.online.bookstore.member.vo.MemberVO" alias="memberVO" />
-	    <typeAlias type="com.online.bookstore.cart.vo.CartVO" alias="cartVO" />
+ 		<typeAlias type="com.online.bookstore.member.vo.MemberVO" alias="memberVO" />
+<!--	    <typeAlias type="com.online.bookstore.cart.vo.CartVO" alias="cartVO" />
 	    <typeAlias type="com.online.bookstore.order.vo.OrderVO" alias="orderVO" />
-	    <typeAlias type="com.online.bookstore.mypage.vo.MyPageVO" alias="mypageVO" />
+	    <typeAlias type="com.online.bookstore.mypage.vo.MyPageVO" alias="mypageVO" />  -->
 	</typeAliases>
 </configuration>

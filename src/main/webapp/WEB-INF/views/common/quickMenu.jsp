@@ -85,8 +85,7 @@
 		<div class="recent">
 			<h3>최근 본 상품</h3>
 				<ul>
-					<c:choose>
-						<!-- 상품 없을 때 -->
+					<c:choose>	
 						<c:when test="${empty quickGoodsList}">
 							<strong>상품이 없습니다!</strong>
 						</c:when>

@@ -5,7 +5,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<% request.setCharacterEncodig("utf-8"); %>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@
 	<div id="outer_wrap">
 		<div id="wrap">
 			<header>
-				<tiles:insertAttribute name="header" />
+				<tiles:insertAttribute name="header" ignore="true"/>
 			</header>
 			<div class="clear"></div>
 			<aside>

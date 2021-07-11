@@ -13,7 +13,7 @@
 		<put-attribute name="quickMenu" value="/WEB-INF/views/common/quickMenu.jsp" />
 	</definition>
 	
-	<definition name="/main/main" extends="baseLayout">
+	<definition name="main/main" extends="baseLayout">
 		<put-attribute name="title" value="쇼핑몰 메인페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
 	</definition>	

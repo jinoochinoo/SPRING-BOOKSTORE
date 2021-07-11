@@ -1,45 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.member">
-	<!-- resultMap 설정 -->
-	<resultMap type="memberResult" id="MemberVO">
+	<!-- resultMap 정의 -->	
+	<resultMap id="memberResult" type="memberVO">
 		<result property="member_id" column="member_id" />
 		<result property="member_pw" column="member_pw" />
-		<result property="member_name" column="member_name" />
-		<result property="member_email" column="member_email" />		
-		<result property="sms_YN" column="sms_YN" />
+		<result property="member_name" column="member_name" />		
+		<result property="member_birth_y" column="member_birth_y" />
+		<result property="member_birth_m" column="member_birth_m" />
+		<result property="member_birth_d" column="member_birth_d" />
+		<result property="member_birth_gn" column="member_birth_gn" />		
+		<result property="hp1" column="hp1" />
+		<result property="hp2" column="hp2" />
+		<result property="hp3" column="hp3" />
+		<result property="sms_yn" column="sms_yn" />
+		<result property="email1" column="email1" />
+		<result property="email2" column="email2" />
 		<result property="zipcode" column="zipcode" />
-		<result property="address" column="address" />
-		<result property="joindate" column="joindate" />
-		<result property="del_YN" column="del_YN" />
-	</resultMap>
-	
-	<insert id="insertNewMember" parameterType="memberVO">
-		<![CDATA[
-			insert into shopping_member(
-			member_id,
-			member_pw,
-			member_name,
-			member_email,
-			sms_YN,
-			zipcode,
-			address,
-			joindate,
-			del_YN)
-			values(
-			#{member_id},
-			#{member_pw},
-			#{member_name},
-			#{member_email},
-			#{sms_YN},
-			#{zipcode},
-			#{address},
-			#{joindate},
-			#{del_YN})
+		<result property="joinDate" column="joinDate" />
+	</resultMap>	
+
+	<select id="login" resultType="memberVO"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			select * 
+			from shopping_member 
+			where member_id=#{member_id}
+			and member_pw=#{member_pw} 
 		]]>
-	</insert>
+	</select>
 	
+	<select id="selectOverlappedID" parameterType="String" resultType="String">
+	   select decode(count(*),1, 'true', 0, 'false')
+	   from shopping_member
+	   where member_id = #{id}
+	</select>
+	
+  <insert id="insertNewMember"  parameterType="memberVO">
+  <![CDATA[
+    	insert into shopping_member(
+    								 member_id,
+				 					 member_pw,
+                                     member_name,
+                                     member_birth_y,
+                                     member_birth_m,
+                                     member_birth_d,
+                                     member_birth_gn,
+                                     hp1,
+                                     hp2,
+                                     hp3,
+                                     sms_yn,
+                                     email1,
+                                     email2,
+                                     zipcode)
+							 values(
+							 		#{member_id},
+									#{member_pw},
+									#{member_name},
+                                   	#{member_birth_y},
+                                   	#{member_birth_m},
+                                    #{member_birth_d},
+                                    #{member_birth_gn},
+                                    #{hp1},
+                                    #{hp2},
+                                    #{hp3},
+                                    #{sms_yn},
+                                    #{email1},
+                                    #{email2},
+                                    #{zipcode})  
+   ]]>      
+  </insert>
 </mapper>
