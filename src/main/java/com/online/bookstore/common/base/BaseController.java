@@ -81,19 +81,19 @@ public abstract class BaseController  {
 		endDate = endYear +"-"+ endMonth +"-"+endDay;
 		
 		if(fixedSearchPeriod == null) {
-			cal.add(cal.MONTH,-4);
+			cal.add(Calendar.MONTH,-4);
 		}else if(fixedSearchPeriod.equals("one_week")) {
 			cal.add(Calendar.DAY_OF_YEAR, -7);
 		}else if(fixedSearchPeriod.equals("two_week")) {
 			cal.add(Calendar.DAY_OF_YEAR, -14);
 		}else if(fixedSearchPeriod.equals("one_month")) {
-			cal.add(cal.MONTH,-1);
+			cal.add(Calendar.MONTH,-1);
 		}else if(fixedSearchPeriod.equals("two_month")) {
-			cal.add(cal.MONTH,-2);
+			cal.add(Calendar.MONTH,-2);
 		}else if(fixedSearchPeriod.equals("three_month")) {
-			cal.add(cal.MONTH,-3);
+			cal.add(Calendar.MONTH,-3);
 		}else if(fixedSearchPeriod.equals("four_month")) {
-			cal.add(cal.MONTH,-4);
+			cal.add(Calendar.MONTH,-4);
 		}
 		
 		beginYear   = Integer.toString(cal.get(Calendar.YEAR));

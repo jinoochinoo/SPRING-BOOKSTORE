@@ -23,6 +23,7 @@
 		
 		<result property="delivery_address" column="delivery_address" />
 		<result property="delivery_method" column="delivery_method" />
+		<result property="pay_order_time" column="pay_order_time" />
 		<result property="pay_method" column="pay_method" />
 		<result property="card_com_name" column="card_com_name" />
 		<result property="card_pay_month" column="card_pay_month" />
@@ -38,7 +39,9 @@
 	    <![CDATA[
 			select * 
 			from shopping_order
-			where member_id=#{member_id}
+			where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
+        	and member_id=#{member_id}
+        	order by pay_order_time desc
 		]]>
 	</select>
 	<insert id="insertNewOrder" parameterType="orderVO"  >
@@ -98,9 +101,11 @@
 	
 	<select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
 	    <![CDATA[
-		    select * from 
-			shopping_order
-            where order_id=#{order_id}
+		    select * 
+		    from shopping_order
+            where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
+            and order_id=#{order_id}
+            order by pay_order_time desc
     	]]>
 	</select>
 	
