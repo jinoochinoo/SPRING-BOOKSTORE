@@ -22,6 +22,15 @@ public class MemberVO {
 	private String joinDate;
 	private String del_yn;
 	
+	@Override
+	public String toString() {
+		return "MemberVO [member_id=" + member_id + ", member_pw=" + member_pw + ", member_name=" + member_name
+				+ ", member_birth_y=" + member_birth_y + ", member_birth_m=" + member_birth_m + ", member_birth_d="
+				+ member_birth_d + ", member_birth_gn=" + member_birth_gn + ", hp1=" + hp1 + ", hp2=" + hp2 + ", hp3="
+				+ hp3 + ", sms_yn=" + sms_yn + ", email1=" + email1 + ", email2=" + email2 + ", zipcode=" + zipcode
+				+ ", address=" + address + ", joinDate=" + joinDate + ", del_yn=" + del_yn + "]";
+	}
+	
 	public String getMember_id() {
 		return member_id;
 	}

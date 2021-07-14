@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin.order">
+	<resultMap id="orderResult" type="orderVO">
+	    <result property="order_seq_num" column="order_seq_num" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_title" column="goods_title" />
+		<result property="goods_sales_price" column="goods_sales_price" />
+		<result property="order_total_price" column="order_total_price" />
+		<result property="order_goods_qty" column="order_goods_qty" />
+		
+		<result property="orderer_name" column="orderer_name" />
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_hp1" column="receiver_hp1" />
+		<result property="receiver_hp2" column="receiver_hp2" />
+		<result property="receiver_hp3" column="receiver_hp3" />
+		
+		<result property="delivery_address" column="delivery_address" />
+		<result property="delivery_method" column="delivery_method" />
+		<result property="pay_order_time" column="pay_order_time" />
+		<result property="pay_method" column="pay_method" />
+		<result property="card_com_name" column="card_com_name" />
+		<result property="card_pay_month" column="card_pay_month" />
+		
+		<result property="pay_orderer_hp_num" column="pay_orderer_hp_num" />
+		<result property="final_total_price" column="final_total_price" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="orderer_hp" column="orderer_hp" />
+		<result property="goods_fileName" column="goods_fileName" />
+	</resultMap>
+	
+	<resultMap id="memberResult" type="memberVO">
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+		<result property="member_name" column="member_name" />		
+		<result property="member_birth_y" column="member_birth_y" />
+		<result property="member_birth_m" column="member_birth_m" />
+		<result property="member_birth_d" column="member_birth_d" />
+		<result property="member_birth_gn" column="member_birth_gn" />		
+		<result property="hp1" column="hp1" />
+		<result property="hp2" column="hp2" />
+		<result property="hp3" column="hp3" />
+		<result property="sms_yn" column="sms_yn" />
+		<result property="email1" column="email1" />
+		<result property="email2" column="email2" />
+		<result property="zipcode" column="zipcode" />
+		<result property="joinDate" column="joinDate" />	
+	</resultMap>
+	
+<select id="selectNewOrderList" resultMap="orderResult"   parameterType="java.util.HashMap"  >
+		  select * from (
+			    select rowNum as recNum,t.*
+			       from (
+			              select  *  
+			              from shopping_order 
+			              where to_char(pay_order_time,'yyyy-mm-dd') between #{beginDate} and #{endDate}
+			                <if test="search_type=='orderer_id'">
+			                  AND orderer_id=#{search_word}
+			                </if>
+			                <if test="search_type=='orderer_name'">
+			                  AND orderer_name=#{search_word}
+			                </if>
+			                <if test="search_type=='orderer_hp_num'">
+			                   AND pay_orderer_hp_num=#{search_word} 
+			                </if>
+			              order by pay_order_time desc
+					    ) t
+				)							
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
+	</select>	
+	
+    <select id="selectOrderDetail" resultMap="orderResult"   parameterType="int"  >
+	    <![CDATA[
+		    select * 
+		    from shopping_order
+            where order_id=#{order_id}
+    	]]>
+	</select>	
+	
+   <select id="selectOrderer" resultMap="memberResult"  parameterType="String"  >
+	    <![CDATA[
+			select * 
+			from shopping_member 
+			where member_id=#{member_id}
+		]]>
+	</select>	
+</mapper>
+

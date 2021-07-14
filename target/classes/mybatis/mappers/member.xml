@@ -20,7 +20,7 @@
 		<result property="email1" column="email1" />
 		<result property="email2" column="email2" />
 		<result property="zipcode" column="zipcode" />
-		<result property="joinDate" column="joinDate" />
+		<result property="joinDate" column="joinDate" />	
 	</resultMap>	
 
 	<select id="login" resultType="memberVO"  parameterType="java.util.Map"  >
@@ -54,7 +54,8 @@
                                      sms_yn,
                                      email1,
                                      email2,
-                                     zipcode)
+                                     zipcode,
+                                     address)
 							 values(
 							 		#{member_id},
 									#{member_pw},
@@ -69,7 +70,8 @@
                                     #{sms_yn},
                                     #{email1},
                                     #{email2},
-                                    #{zipcode})  
+                                    #{zipcode},
+                                    #{address})  
    ]]>      
   </insert>
 </mapper>

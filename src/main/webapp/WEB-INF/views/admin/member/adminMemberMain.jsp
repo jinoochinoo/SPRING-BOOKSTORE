@@ -32,7 +32,7 @@ function search_member(search_period){
     formObj.appendChild(i_endDate);
     document.body.appendChild(formObj); 
     formObj.method="get";
-    formObj.action="/online/bookstore/admin/member/adminMemberMain.do";
+    formObj.action="/bookstore/admin/member/adminMemberMain.do";
     formObj.submit();
 }
 
@@ -121,7 +121,7 @@ function fn_member_detail(order_id){
     formObj.appendChild(i_order_id);
     document.body.appendChild(formObj); 
     formObj.method="post";
-    formObj.action="/online/bookstore/admin/member/memberDetail.do";
+    formObj.action="/bookstore/admin/member/memberDetail.do";
     formObj.submit();
 }
 
@@ -204,7 +204,7 @@ function fn_detail_search(){
     formObj.appendChild(i_search_word);
     document.body.appendChild(formObj); 
     formObj.method="post";
-    formObj.action="/online/bookstore/admin/member/memberDetail.do";
+    formObj.action="/bookstore/admin/member/memberDetail.do";
     formObj.submit();
 }
 </script>

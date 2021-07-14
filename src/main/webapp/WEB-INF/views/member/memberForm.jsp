@@ -17,7 +17,7 @@ function execDaumPostcode() {
 
 	      // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 	      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	      var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+	      var fullRoadAddr = data.address; // 도로명 주소 변수
 	      var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
 	      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -40,23 +40,7 @@ function execDaumPostcode() {
 
 	      // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	      document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-	      document.getElementById('roadAddress').value = fullRoadAddr;
-	      document.getElementById('jibunAddress').value = data.jibunAddress;
-
-	      // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-	      if(data.autoRoadAddress) {
-	        //예상되는 도로명 주소에 조합형 주소를 추가한다.
-	        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-	        document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
-	      } else if(data.autoJibunAddress) {
-	          var expJibunAddr = data.autoJibunAddress;
-	          document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-	      } else {
-	          document.getElementById('guide').innerHTML = '';
-	      }
-	      
-	     
+	      document.getElementById('address').value = fullRoadAddr;
 	    }
 	  }).open();
 	}
@@ -89,7 +73,25 @@ function fn_overlapped(){
        complete:function(data,textStatus){
        }
     });  //end ajax	 
- }	
+ }
+
+function fn_emailSet(){
+
+    var selectedEmail =$("#emailList option:selected").val();
+
+    $("#emailList option:selected").each(function () {
+		   
+			if($(this).val() == 'non'){ //직접입력일 경우
+				 $("#email2").val('');                        //값 초기화
+				 $("#email2").attr("disabled",false); //활성화
+			}else{ //직접입력이 아닐경우
+				 $("#email2").val($(this).val());      //선택값 입력
+				 // $("#email2").attr("disabled",true); // 비활성화 
+				 // "disabled" 활성화 -> 값 전달 X
+			}
+	   });
+}
+
 </script>
 </head>
 <body>
@@ -121,11 +123,11 @@ function fn_overlapped(){
 					 
 					     <c:forEach var="year" begin="1" end="100">
 					       <c:choose>
-					         <c:when test="${year==80}">
-							   <option value="${ 1920+year}" selected>${ 1920+year} </option>
+					         <c:when test="${year==72}">
+							   <option value="${1920+year}" selected>${1920+year}</option>
 							</c:when>
 							<c:otherwise>
-							  <option value="${ 1920+year}" >${ 1920+year} </option>
+							  <option value="${1920+year}" >${1920+year}</option>
 							</c:otherwise>
 							</c:choose>
 					   	</c:forEach> 
@@ -134,11 +136,11 @@ function fn_overlapped(){
 					 <select name="member_birth_m" >
 					   <c:forEach var="month" begin="1" end="12">
 					       <c:choose>
-					         <c:when test="${month==5 }">
-							   <option value="${month }" selected>${month }</option>
+					         <c:when test="${month==4}">
+							   <option value="${month}" selected>${month}</option>
 							</c:when>
 							<c:otherwise>
-							  <option value="${month }">${month}</option>
+							  <option value="${month}">${month}</option>
 							</c:otherwise>
 							</c:choose>
 					   	</c:forEach>
@@ -146,7 +148,7 @@ function fn_overlapped(){
 					<select name="member_birth_d">
 							<c:forEach var="day" begin="1" end="31">
 					       <c:choose>
-					         <c:when test="${day==10 }">
+					         <c:when test="${day==16}">
 							   <option value="${day}" selected>${day}</option>
 							</c:when>
 							<c:otherwise>
@@ -171,12 +173,12 @@ function fn_overlapped(){
 							<option value="018">018</option>
 							<option value="019">019</option>
 					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3"><br> <br> 
-					<input type="checkbox"	name="smssts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
+					<input type="checkbox"	name="sms_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">이메일<br>(e-mail)</td>
-					<td><input size="10px"   type="text" name="email1" /> @ <input  size="10px"  type="text"name="email2" /> 
-						  <select name="email2" onChange="" title="직접입력">
+					<td><input size="10px" type="text" name="email1" /> @ <input  size="10px" type="text" name="email2" id="email2" />
+						  <select name="emailList" id="emailList" onChange="fn_emailSet();" title="직접입력">
 									<option value="non">직접입력</option>
 									<option value="hanmail.net">hanmail.net</option>
 									<option value="naver.com">naver.com</option>
@@ -189,7 +191,7 @@ function fn_overlapped(){
 									<option value="empal.com">empal.com</option>
 									<option value="korea.com">korea.com</option>
 									<option value="freechal.com">freechal.com</option>
-							</select>
+						</select>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">주소</td>
@@ -197,9 +199,7 @@ function fn_overlapped(){
 					    <input type="text" id="zipcode" name="zipcode" size="10" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
 					 	<br>
 					    <p> 
-					   	지번 주소:<br><input type="text" id="roadAddress"  name="roadAddress" size="50"><br><br>
-					  	도로명 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50"><br><br>
-					  	나머지 주소: <input type="text"  name="namujiAddress" size="50" />
+					   	주소<br><input type="text" id="address" name="address" size="50"><br><br>
 						</p>
 					</td>
 				</tr>

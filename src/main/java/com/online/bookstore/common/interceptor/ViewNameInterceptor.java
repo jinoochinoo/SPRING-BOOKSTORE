@@ -2,9 +2,12 @@ package com.online.bookstore.common.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Component
 public class ViewNameInterceptor extends  HandlerInterceptorAdapter{
 	   @Override
 	   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
@@ -55,6 +58,8 @@ public class ViewNameInterceptor extends  HandlerInterceptorAdapter{
 			if (fileName.lastIndexOf("/") != -1) {
 				fileName = fileName.substring(fileName.lastIndexOf("/",1), fileName.length());
 			}
+			System.out.println("-------------------------------------------------");
+			System.out.println("ViewNameInterceptor : " + fileName);
 			return fileName;
 		}
 	}

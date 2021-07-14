@@ -5,7 +5,7 @@
 
 <mapper namespace="mapper.cart">
 	<!-- 리절트 맵 정의 -->
-	<resultMap id="cartResult" type="CartVO">
+	<resultMap id="cartResult" type="cartVO">
 		<result property="cart_id" column="cart_id" />
 		<result property="goods_id" column="goods_id" />
 		<result property="member_id" column="member_id" />

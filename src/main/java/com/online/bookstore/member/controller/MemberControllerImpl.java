@@ -47,9 +47,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			}else{
 				mav.setViewName("redirect:/main/main.do");	
 			}
-			
-			
-			
 		}else{
 			String message="로그인 실패! 아이디 or 비밀번호 확인하세요!";
 			mav.addObject("message", message);
@@ -80,6 +77,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
+			System.out.println("--------------- memverVO -------------");
+			System.out.println(_memberVO);
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
 		    message +=" alert('회원가입 성공!');";

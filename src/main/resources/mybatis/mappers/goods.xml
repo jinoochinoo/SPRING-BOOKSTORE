@@ -17,7 +17,7 @@
 		<result property="goods_sort" column="goods_sort" />
 	</resultMap>	
 
-	<resultMap id="imageResult" type="ImageFileVO">
+	<resultMap id="imageResult" type="imageFileVO">
 	   <result property="goods_id" column="goods_id" />
 	   <result property="fileName" column="fileName" />
 	   <result property="image_id" column="image_id" />
@@ -32,7 +32,6 @@
 			from shopping_goods g, goods_detail_image d
         	where g.goods_id=d.goods_id 
         	and d.filetype='main_image'
-        	and goods_status=#{goodsStatus}
             order by g.goods_creDate desc)  t
 	        where   rowNum <16
 	    ]]>

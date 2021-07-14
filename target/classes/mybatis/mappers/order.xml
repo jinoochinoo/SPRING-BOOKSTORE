@@ -5,7 +5,7 @@
 
 <mapper namespace="mapper.order">
 <!-- 리절트 맵 정의 -->	
-	<resultMap id="orderGoodsResult" type="OrderVO">
+	<resultMap id="orderGoodsResult" type="orderVO">
 	    <result property="order_seq_num" column="order_seq_num" />
 		<result property="order_id" column="order_id" />
 		<result property="member_id" column="member_id" />
