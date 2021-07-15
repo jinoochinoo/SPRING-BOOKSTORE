@@ -24,12 +24,22 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	
 	@Override
 	public int addNewGoods(HashMap<String, Object> newGoodsMap) throws Exception{
-		int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
+		
 		ArrayList<ImageFileVO> imageFileList = (ArrayList<ImageFileVO>) newGoodsMap.get("imageFileList");
+		System.out.println("세팅 전 : " + imageFileList.toString());
+		
+		int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
+		
+		// 업로드 image 파일에 goods_id 세팅
 		for(ImageFileVO imageFileVO : imageFileList) {
 			imageFileVO.setGoods_id(goods_id);
 		}
+		
+		// goods_id 세팅된 imageFileList 전달
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
+		
+		System.out.println("세팅 후 : " + imageFileList.toString());
+		
 		return goods_id;
 	}
 	
@@ -81,7 +91,10 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	public void addNewGoodsImage(List<ImageFileVO> imageFileList) throws Exception{
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
 	}
-	
 
+	@Override
+	public int totalCount() throws Exception {
+		return adminGoodsDAO.totalCount();
+	}
 	
 }

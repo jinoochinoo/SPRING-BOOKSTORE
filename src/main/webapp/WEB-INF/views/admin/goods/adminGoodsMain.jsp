@@ -243,16 +243,57 @@ function  calcPeriod(search_period){
 	</c:otherwise>
   </c:choose>
         <tr>
-             <td colspan=8 class="fixed">
-                 <c:forEach var="page" begin="1" end="10" step="1" >
-		         <c:if test="${section >1 && page==1}">
-		         	<a href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1}">&nbsp; pre &nbsp;</a>
-		         </c:if>
-		         <a href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page}</a>
-		         <c:if test="${page ==10}">
-		         	<a href="${contextPath}/admin/goods/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		         </c:if>
-	      		</c:forEach> 
+        	<td colspan=8 class="fixed">
+				<div class="cls2" align="center">
+					<c:if test="${totalCount != null}">
+							<c:choose>
+								<c:when test="${totalCount > 50}">
+									<c:forEach var="page" begin="1" end="${section == 1 ? 5 : (totalArticlesNO/10 - (section-1)*5)+1}" step="1">
+										<c:if test="${section > 1 && page == 1}">
+											<a class="no-uline" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section-1}&pageNum=${(section-1)*5}">pre</a>
+										</c:if>
+											<a class="no-uline" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section}&pageNum=${page}" >${(section-1)*5 + page}</a>
+										<c:if test="${page == 5}">	
+											<a class="no-uline" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section+1}&pageNum=${(section-1)*5 + 1}">next</a>
+										</c:if>
+									</c:forEach>
+								</c:when>
+								<c:when test="${totalCount == 50}">
+									<c:forEach var="page" begin="1" end="5" step="1">
+										<a class="no-uline" href="#">${page}</a>
+									</c:forEach>
+								</c:when>
+								<c:when test="${totalCount < 50}">
+									<c:choose>
+										<c:when test="${totalCount % 10 == 0}">
+											<c:forEach var="page" begin="1" end="${totalCount / 10}" step="1">
+												<c:choose>
+													<c:when test="${page == pageNum}">
+														<a class="sel-page" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section}&pageNum=${page}">${page}</a>
+													</c:when>
+													<c:otherwise>
+														<a class="no-uline" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section}&pageNum=${page}">${page}</a>
+													</c:otherwise>
+												</c:choose>	
+											</c:forEach>		
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="page" begin="1" end="${totalCount/10 + 1}" step="1">
+												<c:choose>
+													<c:when test="${page == pageNum}">
+														<a class="sel-page" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section}&pageNum=${page}">${page}</a>
+													</c:when>
+													<c:otherwise>
+														<a class="no-uline" href="${contextPath}/admin/goods/adminGoodsMain.do?section=${section}&pageNum=${page}">${page}</a>
+													</c:otherwise>
+												</c:choose>	
+											</c:forEach>						
+										</c:otherwise>
+									</c:choose>
+								</c:when>		
+							</c:choose>
+						</c:if>
+					</div>	      		 
      		</td>
      	</tr>
 		</TBODY>

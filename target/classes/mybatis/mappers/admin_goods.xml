@@ -79,17 +79,17 @@
 		  			      #{goods_publisher},
 		  			      #{goods_price},
 		  			      #{goods_published_date},
-		  			      #{goods_isbn },
+		  			      #{goods_isbn},
 		  			      #{goods_publisher_comment}
 				 		)
 		]]>
 	</insert> 
-		<insert id="insertGoodsImageFile" parameterType="imageFileVO"   >
+		<insert id="insertGoodsImageFile" parameterType="imageFileVO" >
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
 	    	select seq_image_id.nextval from dual
 	    </selectKey>
 	    <![CDATA[
-		   insert into t_goods_detail_image (image_id,
+		   insert into goods_detail_image (image_id,
 		                                     				 goods_id,
 															 fileName,
 															 fileType)
@@ -108,7 +108,7 @@
 			          goods_writer,
 			          goods_publisher,
 			          goods_price,
-			          to_char(goods_creDate,'YYYY-MM-DD')  as goods_creDate,
+			          to_char(goods_creDate,'YYYY-MM-DD')  as goods_creDate
 			          from (
 			           select  goods_id,
 			             		 goods_title,
@@ -219,7 +219,13 @@
 	    </set>
 	    where 
 	    order_id=#{order_id}
-	
-	</update>		
+	</update>
+
+    <select id="totalCount" resultType="int" >
+	    <![CDATA[
+		    select count(*)
+		    from shopping_goods
+    	]]>
+	</select>	
 </mapper>
 

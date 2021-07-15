@@ -22,5 +22,5 @@ public interface AdminGoodsDAO {
 	public void deleteGoodsImage(List fileList) throws DataAccessException;
 	public List<OrderVO> selectOrderGoodsList(Map condMap) throws DataAccessException;
 	public void updateOrderGoods(Map orderMap) throws DataAccessException;
-	
+	public int totalCount() throws DataAccessException;
 }

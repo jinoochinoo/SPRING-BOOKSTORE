@@ -29,4 +29,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void  modifyMemberInfo(HashMap memberMap) throws Exception{
 		 adminMemberDAO.modifyMemberInfo(memberMap);
 	}
+
+	@Override
+	public int totalCount() throws Exception {
+		return adminMemberDAO.totalCount();
+	}
+
 }

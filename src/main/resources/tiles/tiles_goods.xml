@@ -12,7 +12,11 @@
          <put-attribute name="title" value="상품 검색 결과 페이지" />
          <put-attribute name="body" value="/WEB-INF/views/goods/searchGoods.jsp" />
       </definition>
-  
+      
+  	<definition name="/goods/goodsList" extends="baseLayout">
+		<put-attribute name="title" value="쇼핑몰 상품별 분류" />
+		<put-attribute name="body" value="/WEB-INF/views/goods/sortGoodsList.jsp" />
+	</definition>
 </tiles-definitions>
 
 

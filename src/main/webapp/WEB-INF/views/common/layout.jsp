@@ -26,7 +26,7 @@
 	<div id="outer_wrap">
 		<div id="wrap">
 			<header>
-				<tiles:insertAttribute name="header" ignore="true"/>
+				<tiles:insertAttribute name="header" />
 			</header>
 			<div class="clear"></div>
 			<aside>

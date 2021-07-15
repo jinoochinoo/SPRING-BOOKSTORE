@@ -18,8 +18,8 @@
 
 <div class="main_book">
    <c:set  var="goods_count" value="0" />
-	<h3>베스트셀러</h3>
-	<c:forEach var="item" items="${goodsMap.bestseller}">
+	<div><h3>${goods_sort}</h3></div>
+	<c:forEach var="item" items="${sortGoodsMap.sortGoodsList}">
 	   <c:set var="goods_count" value="${goods_count+1}" />
 		<div class="book">
 			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
@@ -46,7 +46,7 @@
 	<img width="770" height="117" src="${contextPath}/resources/image/sub_banner01.jpg">
 </div>
 
-<div class="main_book" >
+<%-- <div class="main_book" >
 <c:set  var="goods_count" value="0" />
 	<h3>새로 출판된 책</h3>
 	<c:forEach var="item" items="${goodsMap.newbook}" >
@@ -69,7 +69,7 @@
     </div>
 	</c:if>
 	</c:forEach>
-</div>
+</div> --%>
 
 <div class="clear"></div>
 <div id="ad_sub_banner">

@@ -335,7 +335,7 @@ function fn_detail_search(){
 					        </c:otherwise>
 					      </c:choose>
 					    </c:forEach>	
-					</select>일  &nbsp; ~
+					</select>일  &nbsp; ~ &nbsp;
 					
 					<select name="endYear" disabled >
 					 <c:forEach   var="i" begin="0" end="5">
@@ -464,38 +464,74 @@ function fn_detail_search(){
 		</c:forEach>
 	</c:otherwise>
   </c:choose>	
-         <tr>
+<%--          <tr>
              <td colspan=8 class="fixed">
                  <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${chapter >1 && page==1 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter-1}&pageNum=${(chapter-1)*10 +1 }">&nbsp; pre &nbsp;</a>
+		         <c:if test="${section > 1 && page== 1}">
+		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre &nbsp;</a>
 		         </c:if>
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter}&pageNum=${page}">${(chapter-1)*10 +page} </a>
+		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}">${(section-1)*10 +page} </a>
 		         <c:if test="${page ==10 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter+1}&pageNum=${chapter*10+1}">&nbsp; next</a>
+		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
 		         </c:if> 
 	      		</c:forEach> 
            </td>
-        </tr>  		   
+        </tr>  	 --%>	   
 		</tbody>
 	</table>
   </form>   	
 	<div class="clear"></div>
-<c:choose>
- <c:when test="${not empty order_goods_list}">	
-   <DIV id="page_wrap">
-		 <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${chapter >1 && page==1 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter-1}&pageNum=${(chapter-1)*10 +1 }">&nbsp; pre &nbsp;</a>
-		         </c:if>
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter}&pageNum=${page}">${(chapter-1)*10 +page} </a>
-		         <c:if test="${page ==10 }">
-		          <a href="${pageContext.request.contextPath}/admin/member/adminMemberMain.do?chapter=${chapter+1}&pageNum=${chapter*10+1}">&nbsp; next</a>
-		         </c:if> 
-	      </c:forEach> 
-	</DIV>	
- </c:when>
-</c:choose>
+	<%-- 페이징 --%>
+	<div class="cls2" align="center">
+		<c:if test="${totalCount != null}">
+				<c:choose>
+					<c:when test="${totalCount > 50}">
+						<c:forEach var="page" begin="1" end="${section == 1 ? 5 : (totalArticlesNO/10 - (section-1)*5)+1}" step="1">
+							<c:if test="${section > 1 && page == 1}">
+								<a class="no-uline" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section-1}&pageNum=${(section-1)*5}">pre</a>
+							</c:if>
+								<a class="no-uline" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}" >${(section-1)*5 + page}</a>
+							<c:if test="${page == 5}">	
+								<a class="no-uline" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section+1}&pageNum=${(section-1)*5 + 1}">next</a>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:when test="${totalCount == 50}">
+						<c:forEach var="page" begin="1" end="5" step="1">
+							<a class="no-uline" href="#">${page}</a>
+						</c:forEach>
+					</c:when>
+					<c:when test="${totalCount < 50}">
+						<c:choose>
+							<c:when test="${totalCount % 10 == 0}">
+								<c:forEach var="page" begin="1" end="${totalCount / 10}" step="1">
+									<c:choose>
+										<c:when test="${page == pageNum}">
+											<a class="sel-page" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}">${page}</a>
+										</c:when>
+										<c:otherwise>
+											<a class="no-uline" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}">${page}</a>
+										</c:otherwise>
+									</c:choose>	
+								</c:forEach>		
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="page" begin="1" end="${totalCount/10 + 1}" step="1">
+									<c:choose>
+										<c:when test="${page == pageNum}">
+											<a class="sel-page" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}">${page}</a>
+										</c:when>
+										<c:otherwise>
+											<a class="no-uline" href="${contextPath}/bookstore/admin/member/adminMemberMain.do?section=${section}&pageNum=${page}">${page}</a>
+										</c:otherwise>
+									</c:choose>	
+								</c:forEach>						
+							</c:otherwise>
+						</c:choose>
+					</c:when>		
+				</c:choose>
+			</c:if>
+		</div>
 </body>
 </html>
 

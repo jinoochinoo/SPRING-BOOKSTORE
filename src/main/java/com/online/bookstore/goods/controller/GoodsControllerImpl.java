@@ -75,7 +75,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsList", goodsList);
 		return mav;
-		
 	}
 	
 	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
@@ -104,5 +103,21 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		}
 		session.setAttribute("quickGoodsList",quickGoodsList);
 		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
+	}
+	
+	@RequestMapping(value="/goodsList.do", method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView sortGoodsList(@RequestParam("goods_sort") String goods_sort, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		Map<String, List<GoodsVO>> sortGoodsMap = goodsService.sortGoodsList(goods_sort);
+		mav.addObject("sortGoodsMap", sortGoodsMap);
+		mav.addObject("goods_sort", goods_sort);
+		
+		System.out.println("--------------- sortGoodsList Controller ------------");
+		System.out.println(sortGoodsMap.isEmpty());
+		System.out.println(goods_sort);
+		return mav;
 	}
 }

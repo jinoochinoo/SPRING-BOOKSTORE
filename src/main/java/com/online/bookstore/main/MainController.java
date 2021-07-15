@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.online.bookstore.common.base.BaseController;
 import com.online.bookstore.goods.service.GoodsService;
 import com.online.bookstore.goods.vo.GoodsVO;
+import com.online.bookstore.member.vo.MemberVO;
 
 @Controller("mainController")
 @EnableAspectJAutoProxy
@@ -24,7 +25,7 @@ public class MainController extends BaseController {
 	@Autowired
 	private GoodsService goodsService;
 
-	@RequestMapping(value= "/main/main.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value= "/main/main.do", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session;
 		ModelAndView mav=new ModelAndView();
@@ -32,7 +33,16 @@ public class MainController extends BaseController {
 		mav.setViewName(viewName);
 		
 		session=request.getSession();
-		session.setAttribute("side_menu", "user"); // side_menu 값에 따라 사이드 메뉴 항목 다르게 설정
+		
+		if(session.getAttribute("memberInfo") == null) {
+			session.setAttribute("side_menu", "user");
+		} else {
+			MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+			if(memberVO.getMember_id().equals("admin")) {
+				session.setAttribute("side_menu", "admin_mode");
+			}
+		}
+		
 		Map<String,List<GoodsVO>> goodsMap = goodsService.listGoods();
 		mav.addObject("goodsMap", goodsMap);
 		return mav;

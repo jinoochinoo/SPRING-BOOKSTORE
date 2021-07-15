@@ -47,7 +47,6 @@ public class FileDownloadController {
 		OutputStream out = response.getOutputStream();
 		String filePath=CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+fileName;
 		File image=new File(filePath);
-		
 		if (image.exists()) { 
 			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out); // 메인 페이지 이미지를 썸네일로 표시
 		}

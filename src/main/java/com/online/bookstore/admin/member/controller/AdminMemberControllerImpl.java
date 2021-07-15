@@ -43,7 +43,6 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		dateMap.put("beginDate", beginDate);
 		dateMap.put("endDate", endDate);
 		
-		
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
 		if(section== null) {
 			section = "1";
@@ -55,8 +54,12 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		condMap.put("pageNum",pageNum);
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
+		condMap.put("search_type", "");
 		ArrayList<MemberVO> member_list=adminMemberService.listMember(condMap);
 		mav.addObject("member_list", member_list);
+		
+		int totalCount = adminMemberService.totalCount();
+		mav.addObject("totalCount", totalCount);
 		
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");

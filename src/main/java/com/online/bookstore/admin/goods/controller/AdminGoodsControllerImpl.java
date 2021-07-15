@@ -39,14 +39,15 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		/*
 		HttpSession session=request.getSession();
 		session=request.getSession();
 		session.setAttribute("side_menu", "admin_mode"); // 사이드메뉴 관리자 설정
-		
+		*/
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		String section = dateMap.get("section");
 		String pageNum = dateMap.get("pageNum");
-		String beginDate=null,endDate=null;
+		String beginDate=null, endDate=null;
 		
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
@@ -63,10 +64,14 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			pageNum = "1";
 		}
 		condMap.put("pageNum",pageNum);
+		
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
 		List<GoodsVO> newGoodsList=adminGoodsService.listNewGoods((HashMap<String, Object>) condMap);
 		mav.addObject("newGoodsList", newGoodsList);
+		
+		int totalCount = adminGoodsService.totalCount();
+		mav.addObject("totalCount", totalCount);
 		
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");

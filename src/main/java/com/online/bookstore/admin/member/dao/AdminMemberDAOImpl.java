@@ -17,7 +17,7 @@ public class AdminMemberDAOImpl  implements AdminMemberDAO{
 	
 	
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws DataAccessException{
-		ArrayList<MemberVO>  memberList=(ArrayList)sqlSession.selectList("mapper.admin.member.listMember",condMap);
+		ArrayList<MemberVO> memberList=(ArrayList)sqlSession.selectList("mapper.admin.member.listMember",condMap);
 		return memberList;
 	}
 	
@@ -28,6 +28,11 @@ public class AdminMemberDAOImpl  implements AdminMemberDAO{
 	
 	public void modifyMemberInfo(HashMap memberMap) throws DataAccessException{
 		sqlSession.update("mapper.admin.member.modifyMemberInfo",memberMap);
+	}
+
+	@Override
+	public int totalCount() throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.member.totalCount");
 	}
 	
 	

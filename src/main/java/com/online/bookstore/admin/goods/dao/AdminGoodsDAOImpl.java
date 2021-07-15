@@ -93,6 +93,10 @@ public class AdminGoodsDAOImpl  implements AdminGoodsDAO{
 		}
 	}
 
+	public int totalCount() throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.goods.totalCount");
+	}
+
 
 
 

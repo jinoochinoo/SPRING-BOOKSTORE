@@ -81,7 +81,7 @@
 		}
 	}
 	
-function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
+function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
 	var _isLogOn = document.getElementById("isLogOn");
 	var isLogOn = _isLogOn.value;
 	
@@ -94,25 +94,25 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 	var formObj = document.createElement("form");
 	var i_goods_id = document.createElement("input"); 
     var i_goods_title = document.createElement("input");
-    var i_goods_sales_price = document.createElement("input");
+    var i_goods_price = document.createElement("input");
     var i_fileName = document.createElement("input");
     var i_order_goods_qty = document.createElement("input");
     
     i_goods_id.name="goods_id";
     i_goods_title.name="goods_title";
-    i_goods_sales_price.name="goods_sales_price";
+    i_goods_price.name="goods_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
     
     i_goods_id.value=goods_id;
     i_order_goods_qty.value=order_goods_qty.value;
     i_goods_title.value=goods_title;
-    i_goods_sales_price.value=goods_sales_price;
+    i_goods_price.value=goods_price;
     i_fileName.value=fileName;
     
     formObj.appendChild(i_goods_id);
     formObj.appendChild(i_goods_title);
-    formObj.appendChild(i_goods_sales_price);
+    formObj.appendChild(i_goods_price);
     formObj.appendChild(i_fileName);
     formObj.appendChild(i_order_goods_qty);
 
@@ -125,8 +125,6 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 </head>
 <body>
 	<hgroup>
-		<h1>컴퓨터와 인터넷</h1>
-		<h2>국내외 도서 &gt; 컴퓨터와 인터넷 &gt; 웹 개발</h2>
 		<h3>${goods.goods_title}</h3>
 		<h4>${goods.goods_writer} &nbsp; 저| ${goods.goods_publisher}</h4>
 	</hgroup>
@@ -147,14 +145,6 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 					</span></td>
 				</tr>
 				<tr>
-					<td class="fixed">포인트적립</td>
-					<td class="active">${goods.goods_point}P(10%적립)</td>
-				</tr>
-				<tr class="dot_line">
-					<td class="fixed">포인트 추가적립</td>
-					<td class="fixed">만원이상 구매시 1,000P, 5만원이상 구매시 2,000P추가적립 편의점 배송 이용시 300P 추가적립</td>
-				</tr>
-				<tr>
 					<td class="fixed">발행일</td>
 					<td class="fixed">
 					   <c:set var="pub_date" value="${goods.goods_published_date}" />
@@ -172,7 +162,7 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 				</tr>
 				<tr>
 					<td class="fixed">배송안내</td>
-					<td class="fixed"><strong>[당일배송]</strong> 당일배송 서비스 시작!<br> <strong>[휴일배송]</strong></td>
+					<td class="fixed"><strong>[당일배송]</strong> 당일배송 서비스 시작!</td>
 				</tr>
 				<tr>
 					<td class="fixed">도착예정일</td>
@@ -193,7 +183,7 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 			</tbody>
 		</table>
 		<ul>
-			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
+			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_price}','${goods.goods_fileName}');">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goods.goods_id}')">장바구니</a></li>
 			<li><a class="wish" href="#">위시리스트</a></li>
 		</ul>
@@ -202,28 +192,23 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 	<!-- 내용 들어 가는 곳 -->
 	<div id="container">
 		<ul class="tabs">
-			<li><a href="#tab1">책소개</a></li>
+			<li><a href="#tab1">출판사 서평</a></li>
 			<li><a href="#tab2">저자소개</a></li>
-			<li><a href="#tab3">책목차</a></li>
-			<li><a href="#tab4">출판사서평</a></li>
-			<li><a href="#tab5">추천사</a></li>
-			<li><a href="#tab6">리뷰</a></li>
 		</ul>
 		<div class="tab_container">
 			<div class="tab_content" id="tab1">
-				<h4>책소개</h4>
-				<c:forEach var="image" items="${imageList}">
-					<img 
-						src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${image.fileName}">
-				</c:forEach>
+				<div>
+					<h4>출판사서평</h4>
+					<p>${fn:replace(goods.goods_publisher_comment ,crcn,br)}</p><br> 
+					<c:forEach var="image" items="${imageList}">
+						<img alt="" 
+								src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${image.fileName}">
+					</c:forEach>
+				</div>
 			</div>
 			<div class="tab_content" id="tab2">
 				<h4>저자소개</h4>
 				<div class="writer">저자 : ${goods.goods_writer}</div> 
-			</div>
-			<div class="tab_content" id="tab3">
-				<h4>출판사서평</h4>
-				 <p>${fn:replace(goods.goods_publisher_comment ,crcn,br)}</p> 
 			</div>
 		</div>
 	</div>
@@ -239,7 +224,8 @@ function fn_order_each_goods(goods_id,goods_title, goods_sales_price, fileName){
 				<input type="submit" value="장바구니 보기">
 			</form>
 		</div>
-	</div>		
+	</div>
+	
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>	
 </body>
 </html>

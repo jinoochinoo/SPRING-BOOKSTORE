@@ -8,15 +8,27 @@
 <meta charset="utf-8">
 <head>
 <script type="text/javascript">
-  var cnt=0;
+  var cnt=1;
   function fn_addFile(){
-	  if(cnt == 0){
-		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
+	  if(cnt == 1){
+		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image'" 
+				  + " onchange='readURL(this)'; /><td><td><img id='preview" + cnt + "'src='#' width=200 heigh = 200 />");	  
 	  }else{
 		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' />");
 	  }
   	cnt++;
   }
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			var previewCnt = cnt-1;
+			reader.onload = function(e) {
+				$("#preview"+previewCnt).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
   
   function fn_add_new_goods(obj){
 		 fileName = $('#f_main_image').val();
@@ -25,8 +37,7 @@
 		 }else{
 			 alert("메인 이미지는 반드시 첨부해야 합니다.");
 			 return;
-		 }
-		 
+		 }	 
 	}
 </script>    
 </head>
@@ -47,8 +58,10 @@
 			<tr >
 				<td width=200 >제품분류</td>
 				<td width=500><select name="goods_sort">
-						<option value="컴퓨터와 인터넷" selected>컴퓨터와 인터넷
-						<option value="디지털 기기">디지털 기기
+						<option value="it" selected>IT / 인터넷
+						<option value="sport">운동 / 스포츠
+						<option value="travel">여행 / 해외생활
+						<option value="language">언어 / 외국어
 					</select>
 				</td>
 			</tr>
@@ -56,7 +69,6 @@
 				<td >제품이름</td>
 				<td><input name="goods_title" type="text" size="40" /></td>
 			</tr>
-			
 			<tr>
 				<td >저자</td>
 				<td><input name="goods_writer" type="text" size="40" /></td>
@@ -78,6 +90,10 @@
 				<td><input name="goods_isbn" type="text" size="40" /></td>
 			</tr>
 			<tr>
+				<td >출판사 설명</td>
+				<td><textarea name="goods_publisher_comment" cols="50" rows="10"></textarea></td>
+			</tr>			
+			<tr>
 			 <td>
 			   <br>
 			 </td>
@@ -85,17 +101,18 @@
 				</table>	
 			</div>
 			<div class="tab_content" id="tab7">
-				<h4>상품이미지</h4>
-				<table >
+				<table>
 					<tr>
-						<td align="right">이미지파일 첨부</td>
-			            
-			            <td  align="left"> <input type="button"  value="파일 추가" onClick="fn_addFile()"/></td>
-			            <td>
+						<td align="right"><h5>이미지파일 첨부</h5></td>
+			            <td align="left"><input type="button"  value="파일 추가" onClick="fn_addFile()"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
 				            <div id="d_file">
 				            </div>
 			            </td>
-					</tr>
+			        </tr>
 				</table>
 			</div>
 		</div>
@@ -105,8 +122,7 @@
 	 <table>
 	 	<tr>
 			<td align=center>
-				<!--   <input  type="submit" value="상품 등록하기"> --> 
-				<input  type="button" value="상품 등록하기"  onClick="fn_add_new_goods(this.form)">
+				<input  type="button" value="상품 등록하기" onClick="fn_add_new_goods(this.form)">
 			</td>
 		</tr>
 	 </table>
