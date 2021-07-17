@@ -22,20 +22,11 @@
 			</c:when>
 			<c:when test="${side_menu == 'my_page'}">
 				<li>
-					<h3>주문내역</h3>
+					<h3>마이페이지</h3>
 					<ul>
 						<li><a href="${contextPath}/mypage/listMyOrderHistory.do">주문내역/배송 조회</a></li>
-						<li><a href="#">반품/교환 신청 및 조회</a></li>
-						<li><a href="#">취소 주문 내역</a></li>
-						<li><a href="#">세금 계산서</a></li>
-					</ul>
-				</li>
-				<li>
-					<h3>정보내역</h3>
-					<ul>
 						<li><a href="${contextPath}/mypage/myDetailInfo.do">회원정보관리</a></li>
-						<li><a href="#">나의 주소록</a></li>
-						<li><a href="#">개인정보 동의내역</a></li>
+						<li><a href="#">취소 주문 내역</a></li>
 						<li><a href="#">회원탈퇴</a></li>
 					</ul>
 				</li>			
@@ -57,15 +48,6 @@
 <div class="clear"></div>
 <div id="banner">
 	<a href="#"><img width="190" height="163" src="${contextPath}/resources/image/n-pay.jpg"> </a>
-</div>
-
-<div id="notice">
-	<H2>공지사항</H2>
-	<ul>
-		<c:forEach  var="i" begin="1" end="5" step="1">
-			<li><a href="#">공지사항입니다.${i}</a></li>
-		</c:forEach>
-	</ul>
 </div>
 
 <div id="banner">

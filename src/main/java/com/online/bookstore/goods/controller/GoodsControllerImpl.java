@@ -77,17 +77,16 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		return mav;
 	}
 	
-	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
 	private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session){
 		boolean already_existed=false;
-		List<GoodsVO> quickGoodsList; // 최근 본 상품 저장 ArrayList
-		quickGoodsList = (List<GoodsVO>) session.getAttribute("quickGoodsList");
+		List<GoodsVO> quickGoodsList;
+		quickGoodsList = (List<GoodsVO>) session.getAttribute("quickGoodsList"); // 기존에 quickGoodsList 등록된 상품인지 확인하기 위해 GET
 		
 		if(quickGoodsList!=null){
 			if(quickGoodsList.size() < 4){ // 상품 리스트에 상품 갯수가 3개 이하인 경우
 				for(int i=0; i<quickGoodsList.size(); i++){
 					GoodsVO _goodsBean=(GoodsVO)quickGoodsList.get(i);
-					if(goods_id.equals(_goodsBean.getGoods_id())){
+					if(Integer.parseInt(goods_id) == _goodsBean.getGoods_id()){
 						already_existed=true;
 						break;
 					}
@@ -114,10 +113,6 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		Map<String, List<GoodsVO>> sortGoodsMap = goodsService.sortGoodsList(goods_sort);
 		mav.addObject("sortGoodsMap", sortGoodsMap);
 		mav.addObject("goods_sort", goods_sort);
-		
-		System.out.println("--------------- sortGoodsList Controller ------------");
-		System.out.println(sortGoodsMap.isEmpty());
-		System.out.println(goods_sort);
 		return mav;
 	}
 }

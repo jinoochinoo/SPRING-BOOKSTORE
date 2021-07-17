@@ -46,7 +46,7 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody 
-	public String addGoodsInCart(@RequestParam("goods_id") int goods_id,
+	public String addGoodsInCart(@RequestParam("goods_id") int goods_id, @RequestParam("cart_goods_qty") int cart_goods_qty, 
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
@@ -55,6 +55,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		// 카트 등록전에 이미 등록된 제품인지 판별
 		cartVO.setGoods_id(goods_id);
 		cartVO.setMember_id(member_id);
+		cartVO.setCart_goods_qty(cart_goods_qty);
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
@@ -76,14 +77,13 @@ public class CartControllerImpl extends BaseController implements CartController
 		cartVO.setGoods_id(goods_id);
 		cartVO.setMember_id(member_id);
 		cartVO.setCart_goods_qty(cart_goods_qty);
-		boolean result=cartService.modifyCartQty(cartVO);
+		boolean result=(cartService.modifyCartQty(cartVO) != 0);
 		
 		if(result==true){
 		   return "modify_success";
 		}else{
 			  return "modify_failed";	
 		}
-		
 	}
 	
 	@RequestMapping(value="/removeCartGoods.do" ,method = RequestMethod.POST)

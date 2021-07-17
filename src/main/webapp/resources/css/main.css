@@ -167,7 +167,7 @@ section#new_book #book .price {
 	color: rgb(255, 0, 0); font-weight: bold;
 }
 section#new_book #book .price span {
-	color: rgb(51, 51, 51); font-weight: normal; text-decoration: line-through;
+	color: rgb(51, 51, 51); font-weight: normal;
 }
 article #sorting {
 	margin: 10px 0px 5px; width: auto; font-size: 0.75em; float: right;
@@ -206,9 +206,6 @@ article table#list_view td.goods_description p {
 }
 article table#list_view td.price {
 	padding: 0px 0px 0px 10px; width: 70px;
-}
-article table#list_view td.price span {
-	text-decoration: line-through;
 }
 article table#list_view td.price strong {
 	color: rgb(255, 0, 0); font-weight: bold;
@@ -455,9 +452,6 @@ footer img {
 }
   .list_view td.price {
 	padding: 0px 0px 0px 10px; width: 70px;
-}
- .list_view td.price span {
-	text-decoration: line-through;
 }
    .list_view td.price strong {
 	color: rgb(255, 0, 0); font-weight: bold;

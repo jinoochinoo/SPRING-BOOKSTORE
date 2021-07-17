@@ -69,18 +69,10 @@
 <body>
 	<div id="sticky">
 		<ul>
-			<li><a href="#">
-			   <img	width="24" height="24" src="${contextPath}/resources/image/facebook_icon.png">
-					페이스북
-			</a></li>
-			<li><a href="#">
-			   <img width="24" height="24" src="${contextPath}/resources/image/twitter_icon.png">
-					트위터
-			</a></li>
-			<li><a href="#">
-			   <img	width="24" height="24" src="${contextPath}/resources/image/rss_icon.png">
-					RSS 피드
-			 </a></li>
+			<li><a href="https://github.com/jinoochinoo">
+			   <img	width="24" height="24" src="${contextPath}/resources/image/github_icon.png">
+					GitHub
+			</a></li>		
 		</ul>
 		<div class="recent">
 			<h3>최근 본 상품</h3>
@@ -113,14 +105,14 @@
 					</c:choose>
 				</ul>
 		</div>
-		<div>
+		<div align="center">
 			<c:choose>
 				<c:when test="${empty quickGoodsList}">
-					<h5>  &nbsp; &nbsp; &nbsp; &nbsp;  0/0  &nbsp; </h5>
+					<h5>   0/0  </h5>
 				</c:when>
 				<c:otherwise>
-					<h5><a href="javascript:fn_show_previous_goods();"> 이전 </a> &nbsp; 
-					<span id="cur_goods_num">1</span>/${quickGoodsListNum} &nbsp; 
+					<h5><a href="javascript:fn_show_previous_goods();">이전 </a>
+					<span id="cur_goods_num">1</span>/${quickGoodsListNum} 
 					<a href="javascript:fn_show_next_goods();"> 다음 </a></h5>
 				</c:otherwise>
 			</c:choose>

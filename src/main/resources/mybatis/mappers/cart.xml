@@ -60,10 +60,12 @@
 	    <![CDATA[
 		    	insert into shopping_cart(cart_id,
 		    	                           goods_id,
-		    	                           member_id)
+		    	                           member_id,
+		    	                           cart_goods_qty)
 		        				 values(#{cart_id},
     							        #{goods_id},
-    							        #{member_id})
+    							        #{member_id},
+    							        #{cart_goods_qty})
     	]]>
 	</insert>
 

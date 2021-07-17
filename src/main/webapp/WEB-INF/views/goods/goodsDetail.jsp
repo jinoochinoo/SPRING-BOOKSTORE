@@ -43,18 +43,23 @@
 </style>
 <script type="text/javascript">
 	function add_cart(goods_id) {
+		
+		var order_goods_qty = document.getElementById("order_goods_qty");
+		var cart_goods_qty = order_goods_qty.value;
+		
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/cart/addGoodsInCart.do",
 			data : {
-				goods_id:goods_id
+				goods_id:goods_id,
+				cart_goods_qty:cart_goods_qty
 			},
 			success : function(data, textStatus) {
 			// alert(data);
 			//	$('#message').append(data);
 				if(data.trim()=='add_success'){
-					imagePopup('open', '.layer01');	
+					imagePopup('open');	
 				}else if(data.trim()=='already_existed'){
 					alert("이미 카트에 등록된 상품입니다.");	
 				}
@@ -183,9 +188,8 @@ function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
 			</tbody>
 		</table>
 		<ul>
-			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_price}','${goods.goods_fileName}');">구매하기 </a></li>
+			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id}','${goods.goods_title}','${goods.goods_price}','${goods.goods_fileName}');">구매하기</a></li>
 			<li><a class="cart" href="javascript:add_cart('${goods.goods_id}')">장바구니</a></li>
-			<li><a class="wish" href="#">위시리스트</a></li>
 		</ul>
 	</div>
 	<div class="clear"></div>
@@ -217,8 +221,8 @@ function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
 		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
 		<div id="popup">
 			<!-- 팝업창 닫기 버튼 -->
-			<a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');"> <img
-				src="${contextPath}/resources/image/close.png" id="close" />
+			<a href="javascript:" onClick="javascript:imagePopup('close');">
+				<img src="${contextPath}/resources/image/close.png" id="close" />
 			</a><br /><font size="12" id="contents">장바구니에 담았습니다.</font><br>
 			<form action='${contextPath}/cart/myCartList.do' >				
 				<input type="submit" value="장바구니 보기">

@@ -16,23 +16,19 @@
 				<td>배송비</td>
 				<td>주문금액합계</td>
 			</tr>
-			<tr>
-				<c:forEach var="item" items="${myOrderList}">
+			<c:forEach var="item" items="${myOrderList}">
+				<tr>
 				    <td>${item.order_id}</td>
-					<tr class="goods_image">
 						<td>
 						  	<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
 						    	<img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 						  	</a>
 					  	</td>
-					</tr>
-					<tr>
 						<td>
 						  	<h2>
 						     	<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title}</a>
 						  	</h2>
 					  	</td>
-					</tr>
 					<td>
 					  <h2>${item.order_goods_qty}개</h2>
 					</td>
@@ -41,8 +37,8 @@
 					<td>
 					  <h2>${item.order_goods_qty * item.goods_sales_price}원</h2>
 					</td>
+				</tr>
 			</c:forEach>
-			</tr>
 		</tbody>
 	</table>
 	<div class="clear"></DIV>

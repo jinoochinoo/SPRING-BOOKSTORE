@@ -79,18 +79,15 @@
 			   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 			   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
 			   <li><a href="${contextPath}/cart/myCartList.do">장바구니</a></li>
-			   <li><a href="#">주문배송</a></li>
 			 </c:when>
 			 <c:otherwise>
 			   <li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
 			   <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li> 
 			 </c:otherwise>
 			</c:choose>
-			   <li><a href="#">고객센터</a></li>
-      <c:if test="${isLogOn==true and memberInfo.member_id =='admin' }">  
+      	<c:if test="${isLogOn==true and memberInfo.member_id =='admin' }">  
 	   	   <li class="no_line"><a href="${contextPath}/admin/goods/adminGoodsMain.do">관리자</a></li>
 	    </c:if>
-			  
 		</ul>
 	</div>
 	<br>

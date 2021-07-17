@@ -47,54 +47,41 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullRoadAddr = data.address; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+function execDaumPostcode() {
+	  new daum.Postcode({
+	    oncomplete: function(data) {
+	      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-                if(fullRoadAddr !== ''){
-                    fullRoadAddr += extraRoadAddr;
-                }
+	      // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+	      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	      var fullRoadAddr = data.address; // 도로명 주소 변수
+	      var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('address').value = fullRoadAddr;
+	      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	        extraRoadAddr += data.bname;
+	      }
+	      // 건물명이 있고, 공동주택일 경우 추가한다.
+	      if(data.buildingName !== '' && data.apartment === 'Y'){
+	        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	      }
+	      // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	      if(extraRoadAddr !== ''){
+	        extraRoadAddr = ' (' + extraRoadAddr + ')';
+	      }
+	      // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+	      if(fullRoadAddr !== ''){
+	        fullRoadAddr += extraRoadAddr;
+	      }
 
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    //예상되는 도로명 주소에 조합형 주소를 추가한다.
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-
-                } else {
-                    document.getElementById('guide').innerHTML = '';
-                }
-            }
-        }).open();
-    }
+	      // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	      document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+	      document.getElementById('address').value = fullRoadAddr;
+	    }
+	  }).open();
+	}
     
   window.onload=function()
   {
@@ -204,6 +191,9 @@ var card_pay_month;
 var pay_orderer_hp_num;
 
 function fn_show_order_detail(){
+	
+	alert("fn_show_order_detail() 실행");
+	
 	goods_id="";
 	goods_title="";
 	
@@ -228,7 +218,7 @@ function fn_show_order_detail(){
 		}	
 	}
 	
-	if(h_goods_title.length <2 ||h_goods_title.length==null){
+	if(h_goods_title.length < 2 ||h_goods_title.length==null){
 		goods_title+=h_goods_title.value;
 	}else{
 		for(var i=0; i<h_goods_title.length;i++){
@@ -236,13 +226,11 @@ function fn_show_order_detail(){
 		}	
 	}
 	
-	
-	if(h_goods_fileName.length <2 ||h_goods_fileName.length==null){
+	if(h_goods_fileName.length < 2 ||h_goods_fileName.length==null){
 		goods_fileName+=h_goods_fileName.value;
 	}else{
 		for(var i=0; i<h_goods_fileName.length;i++){
 			goods_fileName+=h_goods_fileName[i].value+"<br>";
-			
 		}	
 	}
 	
@@ -292,7 +280,6 @@ function fn_show_order_detail(){
 	
 	var i_zipcode=document.getElementById("zipcode");
 	var i_address=document.getElementById("address");
-	var i_delivery_message=document.getElementById("delivery_message");
 	var i_pay_method=document.getElementById("pay_method");
 
 	order_goods_qty=h_order_goods_qty.value;
@@ -328,7 +315,6 @@ function fn_show_order_detail(){
 	p_delivery_method.innerHTML=delivery_method;
 	p_receiver_hp_num.innerHTML=receiver_hp_num;
 	p_delivery_address.innerHTML=delivery_address;
-	p_delivery_message.innerHTML=delivery_message;
 	p_pay_method.innerHTML=pay_method;
 	imagePopup('open');
 }
@@ -402,43 +388,45 @@ function fn_process_pay_order(){
 			<tr style="background: #33ff00">
 				<td colspan=2 class="fixed">주문상품명</td>
 				<td>수량</td>
-				<td>주문금액</td>
+				<td>책 가격</td>
 				<td>배송비</td>
-				<td>주문금액합계</td>
+				<td>주문금액 합계</td>
 			</tr>
 			<tr>
 				<c:forEach var="item" items="${myOrderList}">
-					<td class="goods_image">
-						<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
-					    <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-					    <input type="hidden" id="h_goods_id" name="h_goods_id" value="${item.goods_id}" />
-					    <input type="hidden" id="h_goods_fileName" name="h_goods_fileName" value="${item.goods_fileName}" />
-					 	</a>
-					</td>
-					<td>
-					  <h2>
-					  	<a href="${pageContext.request.contextPath}/goods/goods.do?command=goods_detail&goods_id=${item.goods_id}">${item.goods_title}</a>
-					  	<input type="hidden" id="h_goods_title" name="h_goods_title" value="${item.goods_title}" />
-					  </h2>
-					</td>
-					<td>
-					  <h2>${item.order_goods_qty}개</h2>
-					  <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.order_goods_qty}" />
-					</td>
-					<td><h2>${item.goods_sales_price}원</h2></td>
-					<td><h2>0원</h2></td>
-					<td>
-					  <h2>${item.goods_sales_price * item.order_goods_qty}원</h2>
-					  <input  type="hidden" id="h_each_goods_price"  name="h_each_goods_price" value="${item.goods_sales_price * item.order_goods_qty}" />
-					</td>
+					<tr>
+						<td class="goods_image">
+							<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
+						    <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+						    <input type="hidden" id="h_goods_id" name="h_goods_id" value="${item.goods_id}" />
+						    <input type="hidden" id="h_goods_fileName" name="h_goods_fileName" value="${item.goods_fileName}" />
+						 	</a>
+						</td>
+						<td>
+						  <h2>
+						  	<a href="${pageContext.request.contextPath}/goods/goods.do?command=goods_detail&goods_id=${item.goods_id}">${item.goods_title}</a>
+						  	<input type="hidden" id="h_goods_title" name="h_goods_title" value="${item.goods_title}" />
+						  </h2>
+						</td>
+						<td>
+						  <h2>${item.order_goods_qty}개</h2>
+						  <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty" value="${item.order_goods_qty}" />
+						</td>
+						<td><h2>${item.goods_sales_price}원</h2></td>
+						<td><h2>0원</h2></td>
+						<td>
+						  <h2>${item.goods_sales_price * item.order_goods_qty}원</h2>
+						  <input  type="hidden" id="h_each_goods_price"  name="h_each_goods_price" value="${item.goods_sales_price * item.order_goods_qty}" />
+						</td>
+					</tr>
+				<c:set var="final_total_order_price"
+					value="${final_total_order_price+ item.goods_sales_price* item.order_goods_qty}" />
+				<c:set var="total_order_price"
+					value="${total_order_price+ item.goods_sales_price* item.order_goods_qty}" />
+				<c:set var="total_order_goods_qty"
+					value="${total_order_goods_qty+item.order_goods_qty}" />				
 				</c:forEach>
 			</tr>
-			<c:set var="final_total_order_price"
-				value="${final_total_order_price+ item.goods_sales_price* item.order_goods_qty}" />
-			<c:set var="total_order_price"
-				value="${total_order_price+ item.goods_sales_price* item.order_goods_qty}" />
-			<c:set var="total_order_goods_qty"
-				value="${total_order_goods_qty+item.order_goods_qty}" />
 		</tbody>
 	</table>
 	<div class="clear"></div>
@@ -461,8 +449,7 @@ function fn_process_pay_order(){
 					<td class="fixed_join">배송지 선택</td>
 					<td><input type="radio" name="delivery_address"
 						onClick="restore_all()" value="기본배송지" checked>기본배송지 &nbsp;&nbsp;&nbsp; 
-						<input type="radio" name="delivery_address" value="새로입력" onClick="reset_all()">새로입력 &nbsp;&nbsp;&nbsp;
-						<input type="radio" name="delivery_address" value="최근배송지">최근배송지 &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery_address" value="새로입력" onClick="reset_all()">신규 입력
 				    </td>
 				</tr>
 				<tr class="dot_line">
@@ -562,12 +549,6 @@ function fn_process_pay_order(){
 					<p id="p_totalDelivery">${total_delivery_price}원</p> <input
 					id="h_totalDelivery" type="hidden" value="${total_delivery_price}" />
 				</td>
-				<td>
-				<img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
-				<td>
-					<p id="p_totalSalesPrice">${total_discount_price}원</p> 
-					<input id="h_total_sales_price" type="hidden" value="${total_discount_price}" />
-				</td>
 				<td><img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/equal.jpg"></td>
 				<td>
 					<p id="p_final_totalPrice">
@@ -599,11 +580,6 @@ function fn_process_pay_order(){
 					   <input type="radio" id="pay_method" name="pay_method" value="카카오페이(간편결제)">카카오페이(간편결제) &nbsp;&nbsp;&nbsp; 
 					   <input type="radio" id="pay_method" name="pay_method" value="페이나우(간편결제)">페이나우(간편결제) &nbsp;&nbsp;&nbsp; 
 					   <input type="radio" id="pay_method" name="pay_method" value="페이코(간편결제)">페이코(간편결제) &nbsp;&nbsp;&nbsp;
-					</td>
-				</tr>
-				<tr >
-					<td>
-					   <input type="radio"  id="pay_method" name="pay_method" value="직접입금">직접입금&nbsp;&nbsp;&nbsp;
 					</td>
 				</tr>
 				<tr id="tr_pay_card">
@@ -652,7 +628,7 @@ function fn_process_pay_order(){
 	<div align="center">
 		<br>
 		<br>
-		<a href="javascript:fn_show_order_detail();"> 
+		<a href="javascript:fn_show_order_detail()"> 
 			<img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
 		</a>
 		<a href="${contextPath}/main/main.do"> 
@@ -677,7 +653,7 @@ function fn_process_pay_order(){
 					      주문상품번호:
 					 </td>
 					 <td>
-						 <p id="p_order_goods_id"> 주문번호 </p>    
+						 <p id="p_order_goods_id">javascript 처리</p>    
 					 </td>
 				   </tr>
 				   <tr>
@@ -685,15 +661,15 @@ function fn_process_pay_order(){
 					      주문상품명:
 					 </td>
 					 <td>
-						  <p id="p_order_goods_title"> 주문 상품명 </p>    
+						  <p id="p_order_goods_title">javascript 처리</p>    
 					 </td>
 				   </tr>
 				   <tr>
 					  <td width=200px>
-					      주문상품개수:
+					      총 상품 수량:
 					 </td>
 					 <td>
-						  <p id="p_total_order_goods_qty"> 주문 상품개수 </p>    
+						  <p id="p_total_order_goods_qty">javascript 처리</p>    
 					 </td>
 				   </tr>
 				   <tr>
@@ -701,7 +677,7 @@ function fn_process_pay_order(){
 					     주문금액합계:
 					 </td>
 					 <td >
-					      <p id="p_total_order_goods_price">주문금액합계</p>
+					      <p id="p_total_order_goods_price">javascript 처리</p>
 					 </td>
 				   </tr>
 					<tr>
@@ -709,7 +685,7 @@ function fn_process_pay_order(){
 					     주문자:
 					 </td>
 					 <td>
-					      <p id="p_orderer_name"> 주문자 이름</p>
+					      <p id="p_orderer_name">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>
@@ -717,7 +693,7 @@ function fn_process_pay_order(){
 					     받는사람:
 					 </td>
 					 <td>
-					      <p id="p_receiver_name">받는사람이름</p>
+					      <p id="p_receiver_name">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>
@@ -725,7 +701,7 @@ function fn_process_pay_order(){
 					     배송방법:
 					 </td>
 					 <td>
-					      <p id="p_delivery_method">배송방법</p>
+					      <p id="p_delivery_method">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>
@@ -733,7 +709,7 @@ function fn_process_pay_order(){
 					     받는사람 휴대폰번호:
 					 </td>
 					 <td>
-					      <p id="p_receiver_hp_num"></p>
+					      <p id="p_receiver_hp_num">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>
@@ -741,7 +717,7 @@ function fn_process_pay_order(){
 					     배송주소:
 					 </td>
 					 <td align=left>
-					      <p id="p_delivery_address">배송주소</p>
+					      <p id="p_delivery_address">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>
@@ -749,7 +725,7 @@ function fn_process_pay_order(){
 					     결제방법:
 					 </td>
 					 <td align=left>
-					      <p id="p_pay_method">결제방법</p>
+					      <p id="p_pay_method">javascript 처리</p>
 					 </td>
 				   </tr>
 				   <tr>

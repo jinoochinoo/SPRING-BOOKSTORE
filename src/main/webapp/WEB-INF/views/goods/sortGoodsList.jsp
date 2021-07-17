@@ -18,7 +18,7 @@
 
 <div class="main_book">
    <c:set  var="goods_count" value="0" />
-	<div><h3>${goods_sort}</h3></div>
+	<div align="center"><h3>${goods_sort}</h3></div>
 	<c:forEach var="item" items="${sortGoodsMap.sortGoodsList}">
 	   <c:set var="goods_count" value="${goods_count+1}" />
 		<div class="book">
