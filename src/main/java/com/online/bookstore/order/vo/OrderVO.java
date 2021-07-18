@@ -25,12 +25,19 @@ public class OrderVO {
 	private String card_com_name;
 	private String card_pay_month;
 	private String pay_orderer_hp_num; // 휴대폰 결제 전화번호
+	private String pay_order_time;
 	
 	private String final_total_price;
 	private int goods_qty;
 	private String goods_fileName;
 	private String orderer_hp;
 	
+	public String getPay_order_time() {
+		return pay_order_time;
+	}
+	public void setPay_order_time(String pay_order_time) {
+		this.pay_order_time = pay_order_time;
+	}
 	
 	public int getOrder_seq_num() {
 		return order_seq_num;

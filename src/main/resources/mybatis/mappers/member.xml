@@ -74,4 +74,12 @@
                                     #{address})  
    ]]>      
   </insert>
+  
+	<select id="deleteMember" parameterType="String" >
+	    <![CDATA[
+			update shopping_member
+			set del_yn='Y'
+			where member_id=#{member_id} 
+		]]>
+	</select>  
 </mapper>

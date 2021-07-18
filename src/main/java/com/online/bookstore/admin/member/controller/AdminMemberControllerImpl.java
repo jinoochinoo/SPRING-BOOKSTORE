@@ -58,6 +58,9 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		ArrayList<MemberVO> member_list=adminMemberService.listMember(condMap);
 		mav.addObject("member_list", member_list);
 		
+		// List 가져올 때 paging 갯수 기준으로 10개까지 가져오도록 SQL 세팅
+		// member_list.size() 방식으로 totalCount 계산 불가능
+		// 별도로 SQL 작성해서 totalCount 세팅
 		int totalCount = adminMemberService.totalCount();
 		mav.addObject("totalCount", totalCount);
 		

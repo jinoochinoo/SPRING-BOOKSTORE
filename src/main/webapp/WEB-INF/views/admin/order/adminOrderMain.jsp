@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"
 	isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <html>
 <head>
@@ -472,7 +473,6 @@ function fn_detail_search(){
 				<td class="fixed" >주문번호</td>
 				<td class="fixed">주문일자</td>
 				<td>주문내역</td>
-				<td>배송수정</td>
 			</tr>
    <c:choose>
      <c:when test="${empty newOrderList}">			
@@ -485,14 +485,19 @@ function fn_detail_search(){
 	 <c:otherwise>
      <c:forEach var="item" items="${newOrderList}" varStatus="i">
         <c:choose>
-          <c:when test="${item.order_id != pre_order_id}">  
-				 <td width=10%>
+          <c:when test="${item.order_id != pre_order_id}">
+            <tr>
+				<td width=10%>
 				   <a href="javascript:fn_detail_order('${item.order_id}')">
 				     <strong>${item.order_id}</strong>
 				   </a>
 				</td>
 				<td width=20%>
-				 <strong>${item.pay_order_time}</strong> 
+				 <strong>
+				 	<fmt:parseDate value="${item.pay_order_time}" pattern="yyyy-MM-dd HH:ss"  var="pay_order_time" />
+				 	<fmt:formatDate value="${pay_order_time}" pattern="yyyy-MM-dd HH:ss" var="order_time" />
+				 	${order_time}
+				 </strong> 
 				</td>
 				<td width=50% align=left >
 				  <strong>주문자:${item.orderer_name}</strong><br>
@@ -508,25 +513,13 @@ function fn_detail_search(){
 				       </c:if>
 				    </c:forEach> 
 				</td>
+			<tr>
 		</c:when>
 		</c:choose>	
 		<c:set  var="pre_order_id" value="${item.order_id}" />
 	</c:forEach>
 	</c:otherwise>
-  </c:choose>	
-         <tr>
-             <td colspan=8 class="fixed">
-                 <c:forEach   var="page" begin="1" end="10" step="1" >
-		         <c:if test="${section >1 && page==1}">
-		         	<a href="${contextPath}/admin/order/adminOrderMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre &nbsp;</a>
-		         </c:if>
-		         <a href="${contextPath}/admin/order/adminOrderMain.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page}</a>
-		         <c:if test="${page ==10 }">
-		         	<a href="${contextPath}/admin/order/adminOrderMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
-		         </c:if> 
-	      		</c:forEach> 
-           </td>
-        </tr>  		   
+  </c:choose>			   
 		</tbody>
 	</table>
   </form>   	

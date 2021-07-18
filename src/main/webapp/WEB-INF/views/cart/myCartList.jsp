@@ -95,7 +95,7 @@ function delete_cart_goods(cart_id){
     formObj.submit();
 }
 
-function fn_order_each_goods(goods_id,goods_title,goods_price,fileName){
+function fn_order_each_goods(goods_id, goods_title, goods_price, fileName){
 	var total_price,final_total_price,_goods_qty;
 	var cart_goods_qty=document.getElementById("cart_goods_qty");
 	
@@ -109,15 +109,15 @@ function fn_order_each_goods(goods_id,goods_title,goods_price,fileName){
     
     i_goods_id.name="goods_id";
     i_goods_title.name="goods_title";
-    i_goods_price.name="goods_price";
+    i_goods_price.name="goods_sales_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
     
     i_goods_id.value=goods_id;
-    i_order_goods_qty.value=_order_goods_qty;
     i_goods_title.value=goods_title;
     i_goods_price.value=goods_price;
     i_fileName.value=fileName;
+    i_order_goods_qty.value=_order_goods_qty;
     
     formObj.appendChild(i_goods_id);
     formObj.appendChild(i_goods_title);
@@ -173,6 +173,9 @@ function goBack() {
 </script>
 </head>
 <body>
+	<div align="center">
+		<h1><Strong>장바구니</Strong></h1>
+	</div>
 	<table class="list_view">
 		<tbody align=center >
 			<tr style="background:#33ff00" >
@@ -212,8 +215,13 @@ function goBack() {
 											<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">${item.goods_title}</a>
 										</h2>
 									</td>
-									<td class="price"><span>${item.goods_price}원</span><input type="hidden" id="goods_price" value="${item.goods_price}"></td>
-									
+									<td class="price">
+											<span>
+											<fmt:formatNumber  value="${item.goods_price}" type="number" var="goods_price" />
+											${goods_price}원
+											</span>
+										<input type="hidden" id="goods_price" value="${item.goods_price}">
+									</td>
 									<td>
 									   	<input type="text" id="cart_goods_qty" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br>
 										<a href="javascript:modify_cart_qty(${item.goods_id},${item.goods_price},${cnt.count-1});" >

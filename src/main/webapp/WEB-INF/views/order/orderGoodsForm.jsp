@@ -191,9 +191,7 @@ var card_pay_month;
 var pay_orderer_hp_num;
 
 function fn_show_order_detail(){
-	
-	alert("fn_show_order_detail() 실행");
-	
+
 	goods_id="";
 	goods_title="";
 	
@@ -321,7 +319,6 @@ function fn_show_order_detail(){
 
 function fn_process_pay_order(){
 	
-	alert("최종 결제하기");
 	var formObj=document.createElement("form");
     var i_receiver_name=document.createElement("input");
     

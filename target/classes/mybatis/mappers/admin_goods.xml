@@ -15,6 +15,7 @@
 		<result property="goods_isbn" column="goods_isbn" />
 		<result property="goods_fileName" column="fileName" />
 		<result property="goods_sort" column="goods_sort" />
+		<result property="goods_writer_intro" column="goods_writer_intro" />
 	</resultMap>
 
 	<resultMap id="imageResult" type="imageFileVO">
@@ -69,7 +70,8 @@
 						goods_price,
 						goods_published_date,
 						goods_isbn,
-						goods_publisher_comment
+						goods_publisher_comment,
+						goods_writer_intro
 			            )
 		  			values(
 		  			      #{goods_id},
@@ -80,7 +82,8 @@
 		  			      #{goods_price},
 		  			      #{goods_published_date},
 		  			      #{goods_isbn},
-		  			      #{goods_publisher_comment}
+		  			      #{goods_publisher_comment},
+		  			      #{goods_writer_intro}
 				 		)
 		]]>
 	</insert> 

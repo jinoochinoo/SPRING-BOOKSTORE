@@ -28,12 +28,18 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsMap.put("bestseller",goodsList);
 		goodsList= goodsDAO.selectNewGoodsList("newbook");
 		goodsMap.put("newbook",goodsList);
-		/*
-		 * goodsList= goodsDAO.selectGoodsList("steadyseller");
-		 * goodsMap.put("steadyseller",goodsList);
-		 */
 		return goodsMap;
 	}
+	
+	public Map<String,List<GoodsVO>> listAllGoods() throws Exception {
+		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
+		List<GoodsVO> goodsList = new ArrayList<GoodsVO>();
+		goodsList = goodsDAO.selectAllGoodsList("bestseller");
+		goodsMap.put("bestseller",goodsList);
+		goodsList= goodsDAO.selectAllNewGoodsList("newbook");
+		goodsMap.put("newbook",goodsList);
+		return goodsMap;
+	}	
 
 	@Override
 	public Map<String,List<GoodsVO>> sortGoodsList(String goods_sort) throws Exception {

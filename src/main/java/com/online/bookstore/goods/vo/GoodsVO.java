@@ -14,7 +14,14 @@ public class GoodsVO {
 	private String goods_fileName;
 	private String goods_publisher_comment;
 	private Date   goods_credate;
+	private String goods_writer_intro;
 	
+	public String getGoods_writer_intro() {
+		return goods_writer_intro;
+	}
+	public void setGoods_writer_intro(String goods_writer_intro) {
+		this.goods_writer_intro = goods_writer_intro;
+	}
 	public int getGoods_id() {
 		return goods_id;
 	}

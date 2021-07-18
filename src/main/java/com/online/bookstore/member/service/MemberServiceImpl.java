@@ -30,4 +30,9 @@ public class MemberServiceImpl implements MemberService {
 	public String overlapped(String id) throws Exception{
 		return memberDAO.selectOverlappedID(id);
 	}
+
+	@Override
+	public void removeMember(String member_id) throws Exception {
+		memberDAO.deleteMember(member_id);
+	}
 }

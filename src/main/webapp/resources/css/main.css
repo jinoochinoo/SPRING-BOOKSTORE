@@ -453,6 +453,7 @@ footer img {
   .list_view td.price {
 	padding: 0px 0px 0px 10px; width: 70px;
 }
+
    .list_view td.price strong {
 	color: rgb(255, 0, 0); font-weight: bold;
 }

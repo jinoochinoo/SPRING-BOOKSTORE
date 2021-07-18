@@ -94,6 +94,11 @@
 				<td><textarea name="goods_publisher_comment" cols="50" rows="10"></textarea></td>
 			</tr>			
 			<tr>
+			<tr>
+				<td >작가 설명</td>
+				<td><textarea name="goods_writer_intro" cols="50" rows="10"></textarea></td>
+			</tr>			
+			<tr>			
 			 <td>
 			   <br>
 			 </td>

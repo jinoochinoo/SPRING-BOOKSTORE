@@ -131,6 +131,11 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String  member_id=memberVO.getMember_id();
 		if(attribute.equals("member_birth")){
 			val=value.split(",");
+			
+			for(int i=0; i<val.length; i++) {
+				System.out.println(val[i]);
+			}
+			
 			memberMap.put("member_birth_y",val[0]);
 			memberMap.put("member_birth_m",val[1]);
 			memberMap.put("member_birth_d",val[2]);
@@ -140,7 +145,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			memberMap.put("hp1",val[0]);
 			memberMap.put("hp2",val[1]);
 			memberMap.put("hp3",val[2]);
-			memberMap.put("smssts_yn", val[3]);
+			memberMap.put("sms_yn", val[3]);
 		} else if(attribute.equals("email")){
 			val=value.split(",");
 			memberMap.put("email1",val[0]);

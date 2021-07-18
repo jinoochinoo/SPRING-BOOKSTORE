@@ -105,7 +105,7 @@ function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
     
     i_goods_id.name="goods_id";
     i_goods_title.name="goods_title";
-    i_goods_price.name="goods_price";
+    i_goods_price.name="goods_sales_price";
     i_fileName.name="goods_fileName";
     i_order_goods_qty.name="order_goods_qty";
     
@@ -144,10 +144,12 @@ function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
 			<tbody>
 				<tr>
 					<td class="fixed">정가</td>
-					<td class="active"><span >
+					<td class="active"><input type="hidden" name="goods_sales_price" value="${goods.goods_price}" />
+					<span>
 					   <fmt:formatNumber  value="${goods.goods_price}" type="number" var="goods_price" />
 				         ${goods_price}원
-					</span></td>
+					</span>
+					</td>
 				</tr>
 				<tr>
 					<td class="fixed">발행일</td>
@@ -213,7 +215,12 @@ function fn_order_each_goods(goods_id,goods_title, goods_price, fileName){
 			<div class="tab_content" id="tab2">
 				<h4>저자소개</h4>
 				<div class="writer">저자 : ${goods.goods_writer}</div> 
-			</div>
+				<c:if test="${not empty goods.goods_writer_intro}">
+					<div>
+						<p>${fn:replace(goods.goods_writer_intro ,crcn,br)}</p><br> 
+					</div>
+				</c:if>						
+			</div>	
 		</div>
 	</div>
 	<div class="clear"></div>

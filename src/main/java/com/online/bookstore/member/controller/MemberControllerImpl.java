@@ -36,18 +36,25 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		ModelAndView mav = new ModelAndView();
 		memberVO=memberService.login(loginMap);
 		if(memberVO!= null && memberVO.getMember_id()!=null){
-			HttpSession session=request.getSession();
-			session=request.getSession();
-			session.setAttribute("isLogOn", true);
-			session.setAttribute("memberInfo",memberVO);
-			
-			String action=(String)session.getAttribute("action");
-			if(action!=null && action.equals("/order/orderEachGoods.do")){
-				mav.setViewName("forward:"+action);
-			}else{
-				mav.setViewName("redirect:/main/main.do");	
+			if(memberVO.getDel_yn().equals("Y")) {
+				
+				String message="로그인 실패! 이미 탈퇴한 회원입니다";
+				mav.addObject("message", message);
+				mav.setViewName("/member/loginForm");
+			} else {
+				HttpSession session=request.getSession();
+				session=request.getSession();
+				session.setAttribute("isLogOn", true);
+				session.setAttribute("memberInfo",memberVO);
+				
+				String action=(String)session.getAttribute("action");				
+				if(action!=null && action.equals("/order/orderEachGoods.do")){
+					mav.setViewName("forward:"+action);
+				}else{
+					mav.setViewName("redirect:/main/main.do");	
+				}
 			}
-		}else{
+		} else{
 			String message="로그인 실패! 아이디 or 비밀번호 확인하세요!";
 			mav.addObject("message", message);
 			mav.setViewName("/member/loginForm");
@@ -62,6 +69,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		HttpSession session=request.getSession();
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
+		session.removeAttribute("quickGoodsList");
+		session.removeAttribute("quickGoodsListNum");
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
@@ -104,4 +113,18 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		resEntity =new ResponseEntity<Object>(result, HttpStatus.OK);
 		return resEntity;
 	}
+	
+	@Override
+	@RequestMapping(value="/removeMember.do" ,method = RequestMethod.GET)
+	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		session.setAttribute("isLogOn", false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		memberService.removeMember(member_id);
+		session.removeAttribute("memberInfo");
+		mav.setViewName("redirect:/main/main.do");
+		return mav;
+	}	
 }

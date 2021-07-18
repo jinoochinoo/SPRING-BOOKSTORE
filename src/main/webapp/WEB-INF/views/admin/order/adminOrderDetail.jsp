@@ -24,6 +24,7 @@
 			</tr>
 			<tr>
 				<c:forEach var="item" items="${orderList}">
+				<tr>
 				    <td> ${item.order_id}</td>
 					<td class="goods_image">
 					  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}">
@@ -43,6 +44,7 @@
 					<td>
 					  <h2>${item.order_goods_qty *item.goods_sales_price}원</h2>
 					</td>
+				</tr>
 				</c:forEach>
 			</tr>
 		</tbody>

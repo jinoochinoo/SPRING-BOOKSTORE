@@ -26,9 +26,23 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		return newGoodsList;	
 	}	
 
+	
 	@Override
-	public List<GoodsVO> selectSortGoodsList(String goods_sort) throws DataAccessException {
-		List<GoodsVO> sortGoodsList= sqlSession.selectList("mapper.goods.selectSortGoodsList",goods_sort);
+	public List<GoodsVO> selectAllGoodsList(String goodsStatus) throws DataAccessException {
+		List<GoodsVO> goodsList= sqlSession.selectList("mapper.goods.selectAllGoodsList",goodsStatus);
+		return goodsList;	
+	}
+
+	public List<GoodsVO> selectAllNewGoodsList(String goodsStatus) throws DataAccessException {
+		List<GoodsVO> newGoodsList= sqlSession.selectList("mapper.goods.selectAllNewGoodsList",goodsStatus);
+		return newGoodsList;	
+	}	
+	
+	@Override
+	public List<GoodsVO> selectSortGoodsList(String goods_sort) 
+			throws DataAccessException {
+		List<GoodsVO> sortGoodsList= sqlSession.selectList
+				("mapper.goods.selectSortGoodsList",goods_sort);
 		return sortGoodsList;	
 	}	
 	@Override

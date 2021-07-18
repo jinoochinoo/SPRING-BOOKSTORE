@@ -30,6 +30,11 @@ public class MemberDAOImpl  implements MemberDAO{
 		String result =  sqlSession.selectOne("mapper.member.selectOverlappedID",id);
 		return result;
 	}
+
+	@Override
+	public void deleteMember(String member_id) throws DataAccessException {
+		sqlSession.update("mapper.member.deleteMember",member_id);
+	}
 	
 	
 }

@@ -79,7 +79,6 @@ function fn_cancel_order(order_id){
 			</td>
 			<td>
 				<input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소"  />
-				<input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소" disabled />
 			</td>
 			</tr>
           	<c:set  var="pre_order_id" value="${item.order_id}" />

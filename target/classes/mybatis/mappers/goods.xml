@@ -15,6 +15,7 @@
 		<result property="goods_isbn" column="goods_isbn" />
 		<result property="goods_fileName" column="fileName" />
 		<result property="goods_sort" column="goods_sort" />
+		<result property="goods_writer_intro" column="goods_writer_intro" />
 	</resultMap>	
 
 	<resultMap id="imageResult" type="imageFileVO">
@@ -24,7 +25,7 @@
 	   <result property="fileType" column="fileType" />
 	</resultMap>
    
-      <select id="selectGoodsList" parameterType="String" resultMap="goodsResult"   >
+      <select id="selectGoodsList" parameterType="String" resultMap="goodsResult">
         <![CDATA[
          	select t.*
           	from(
@@ -35,7 +36,7 @@
             order by g.goods_creDate desc) t
 	        where rowNum <16
 	    ]]>
-	</select>
+	  </select>
 
 	<select id="selectNewGoodsList" resultMap="goodsResult" >
         <![CDATA[
@@ -48,6 +49,31 @@
 			and TO_CHAR(g.goods_creDate,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
             order by g.goods_creDate desc) t
 	        where rowNum <16
+	    ]]>
+	</select>
+
+      <select id="selectAllGoodsList" parameterType="String" resultMap="goodsResult"   >
+        <![CDATA[
+         	select t.*
+          	from(
+			select g.*,d.fileName 
+			from shopping_goods g, goods_detail_image d
+        	where g.goods_id=d.goods_id 
+        	and d.filetype='main_image'
+            order by g.goods_creDate desc) t
+	    ]]>
+	</select>
+
+	<select id="selectAllNewGoodsList" resultMap="goodsResult" >
+        <![CDATA[
+         	select t.*
+          	from(
+			select g.*,d.fileName 
+			from shopping_goods g, goods_detail_image d
+        	where g.goods_id=d.goods_id 
+        	and d.filetype='main_image'
+			and TO_CHAR(g.goods_creDate,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+            order by g.goods_creDate desc) t
 	    ]]>
 	</select>
 	

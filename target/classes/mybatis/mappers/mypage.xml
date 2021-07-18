@@ -77,6 +77,9 @@
 			      <if test="member_birth_d!='' and member_birth_d!=null">
 			         member_birth_d=#{member_birth_d},
 			      </if>
+			      <if test="member_birth_gn!='' and member_birth_gn!=null">
+			         member_birth_gn=#{member_birth_gn},
+			      </if>
 			      <if test="hp1!='' and hp1!=null">
 			         hp1=#{hp1},
 			      </if>
@@ -97,6 +100,9 @@
 			      </if>
 			      <if test="zipcode!='' and zipcode!=null">
 			         zipcode=#{zipcode},
+			      </if>
+			      <if test=" address!='' and address!=null">
+			         address=#{address}
 			      </if>
 			   </set>
 		where 

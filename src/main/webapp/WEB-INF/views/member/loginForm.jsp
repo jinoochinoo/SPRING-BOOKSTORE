@@ -13,7 +13,7 @@
 			result();
 		}
 		function result(){
-			alert("아이디 or 비밀번호가 틀립니다. 다시 로그인하세요!");
+			alert("${message}");
 		}
 	</script>
 </c:if>
@@ -38,10 +38,10 @@
 			<input type="submit" value="로그인">
 			<input type="button" value="초기화">
 			<br><br>
-		   <a href="#">아이디 찾기</a>  | 
+<%-- 		   <a href="#">아이디 찾기</a>  | 
 		   <a href="#">비밀번호 찾기</a> | 
 		   <a href="${contextPath}/member/addMember.do">회원가입</a>
-		   <a href="#">고객 센터</a>				
+		   <a href="#">고객 센터</a>		 --%>		
 		</form>
 	</div>
 </body>

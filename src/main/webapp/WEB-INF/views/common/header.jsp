@@ -25,7 +25,6 @@
 				alert("에러가 발생했습니다."+data);
 			},
 			complete : function(data, textStatus) {
-				//alert("작업을완료 했습니다");
 			}
 		}); //end ajax	
 	}
@@ -56,7 +55,7 @@
 		 if(element) {
 		  element.style.display = 'block';
 		 }
-		}
+	}
 	
 	function hide(elementId){
 	   var element = document.getElementById(elementId);
@@ -68,8 +67,8 @@
 </script>
 <body>
 	<div id="logo">
-	<a href="${contextPath}/main/main.do">
-		<img width="176" height="80" alt="booktopia" src="${contextPath}/resources/image/Booktopia_Logo.jpg">
+		<a href="${contextPath}/main/main.do">
+		<img width="176" height="80" alt="booktopia" src="${contextPath}/resources/image/bookstore_logo.JPG">
 		</a>
 	</div>
 	<div id="head_link">
