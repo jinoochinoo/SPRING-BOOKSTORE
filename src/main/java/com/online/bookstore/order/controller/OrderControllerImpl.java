@@ -75,7 +75,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
-		@SuppressWarnings("unchecked")
 		Map<String ,List<GoodsVO>> cartMap=(Map<String ,List<GoodsVO>>)session.getAttribute("cartMap");
 		List<OrderVO> myOrderList=new ArrayList<OrderVO>();
 		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList");
@@ -111,13 +110,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
 		String member_id=memberVO.getMember_id();
 		String orderer_name=memberVO.getMember_name();
 		String orderer_hp = memberVO.getHp1()+"-"+memberVO.getHp2()+"-"+memberVO.getHp3();
-		@SuppressWarnings("unchecked")
 		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
 		
 		for(int i=0; i<myOrderList.size();i++){
@@ -125,11 +122,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setMember_id(member_id);
 			orderVO.setOrderer_name(orderer_name);
 			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
-			
 			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
 			orderVO.setReceiver_hp2(receiverMap.get("receiver_hp2"));
 			orderVO.setReceiver_hp3(receiverMap.get("receiver_hp3"));
-
 			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
 			orderVO.setDelivery_method(receiverMap.get("delivery_method"));
 			orderVO.setPay_method(receiverMap.get("pay_method"));
@@ -139,7 +134,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setOrderer_hp(orderer_hp);	
 			myOrderList.set(i, orderVO); // orderVO 주문자 정보 세팅 -> myOrderList 저장
 		}//end for
-		
 	    orderService.addNewOrder(myOrderList);
 		mav.addObject("myOrderInfo", receiverMap);// OrderVO 통해 주문결과 페이지에 주문자 정보 표시
 		mav.addObject("myOrderList", myOrderList);

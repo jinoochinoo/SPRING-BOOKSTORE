@@ -35,4 +35,9 @@ public class MemberServiceImpl implements MemberService {
 	public void removeMember(String member_id) throws Exception {
 		memberDAO.deleteMember(member_id);
 	}
+
+	@Override
+	public String searchMemberID(Map<String, String> searchIDMap) throws Exception {
+		return memberDAO.selectMemberID(searchIDMap);
+	}
 }

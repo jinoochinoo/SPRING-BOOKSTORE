@@ -113,12 +113,11 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		try {
 			int goods_id = adminGoodsService.addNewGoods((HashMap<String, Object>) newGoodsMap);
 			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-					File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
-					FileUtils.moveFileToDirectory(srcFile, destDir,true);
-				}
+				  for(ImageFileVO imageFileVO:imageFileList) { imageFileName =
+				  imageFileVO.getFileName(); 
+				  File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName); 
+				  File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
+				  FileUtils.moveFileToDirectory(srcFile, destDir,true); }
 			}
 			message= "<script>";
 			message += " alert('상품 등록 성공!');";

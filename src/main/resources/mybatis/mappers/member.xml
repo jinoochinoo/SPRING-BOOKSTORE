@@ -81,5 +81,15 @@
 			set del_yn='Y'
 			where member_id=#{member_id} 
 		]]>
-	</select>  
+	</select> 
+	
+	<select id="selectMemberID" resultType="String"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			select member_id
+			from shopping_member 
+			where member_name = #{member_name}
+			and email1= #{email1}
+			and email2 = #{email2} 
+		]]>
+	</select>	 
 </mapper>

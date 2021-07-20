@@ -21,6 +21,8 @@ import com.online.bookstore.common.base.BaseController;
 import com.online.bookstore.member.service.MemberService;
 import com.online.bookstore.member.vo.MemberVO;
 
+import net.sf.json.JSONObject;
+
 @Controller("memberController")
 @RequestMapping(value="/member")
 public class MemberControllerImpl extends BaseController implements MemberController{
@@ -86,14 +88,11 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			System.out.println("--------------- memverVO -------------");
-			System.out.println(_memberVO);
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
 		    message +=" alert('회원가입 성공!');";
 		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
 		    message += " </script>";
-		    
 		}catch(Exception e) {
 			message  = "<script>";
 		    message +=" alert('작업 중 오류 발생!');";
@@ -126,5 +125,39 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		session.removeAttribute("memberInfo");
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/searchMember.do" ,method = RequestMethod.GET)
+	public ModelAndView seachMember(@RequestParam("key") String key, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName((String) request.getAttribute("viewName"));
+		mav.addObject("key", key);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/searchMemberID.do" ,method = RequestMethod.POST)
+	public ResponseEntity<Object> searchMemberID(@RequestParam Map<String, String> searchIDMap, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		System.out.println(searchIDMap.isEmpty());
+		
+		for(String key : searchIDMap.keySet()) {
+			String value = searchIDMap.get(key);
+			System.out.println(key + " : " + value);
+		}
+		
+		String memberID =memberService.searchMemberID(searchIDMap);
+		System.out.println("memberID : " + memberID);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("member_ID", memberID);
+		String jsonInfo = jsonObject.toString();
+		System.out.println("jsonInfo : " + jsonInfo);
+		
+		ResponseEntity<Object> resEntity = new ResponseEntity<Object>(jsonInfo, HttpStatus.OK);
+		return resEntity;
 	}	
 }

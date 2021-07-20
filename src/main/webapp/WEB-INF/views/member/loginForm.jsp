@@ -17,6 +17,13 @@
 		}
 	</script>
 </c:if>
+<script>
+	function openSearchMemberID(url, name){
+		var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+		window.open(url, name, options);
+	}
+</script>
+
 </head>
 <body>
 	<h3>회원 로그인 창</h3>
@@ -38,10 +45,9 @@
 			<input type="submit" value="로그인">
 			<input type="button" value="초기화">
 			<br><br>
-<%-- 		   <a href="#">아이디 찾기</a>  | 
-		   <a href="#">비밀번호 찾기</a> | 
-		   <a href="${contextPath}/member/addMember.do">회원가입</a>
-		   <a href="#">고객 센터</a>		 --%>		
+			<a href="javascript:openSearchMemberID('searchMember.do?key=id', 'searchID');">아이디 찾기</a>  | 
+		   	<a href="javascript:openSearchMemberID('searchMember.do?key=pw', 'searchPW');">비밀번호 찾기</a> | 
+		  	<a href="${contextPath}/member/addMember.do">회원가입</a>
 		</form>
 	</div>
 </body>

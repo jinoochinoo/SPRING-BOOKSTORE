@@ -77,8 +77,8 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session){
 		boolean already_existed=false;
 		List<GoodsVO> quickGoodsList;
-		quickGoodsList = (List<GoodsVO>) session.getAttribute("quickGoodsList"); // 기존에 quickGoodsList 등록된 상품인지 확인하기 위해 GET
-		
+		// 기존에 quickGoodsList 등록된 상품인지 확인하기 위해 getAttribute
+		quickGoodsList = (List<GoodsVO>) session.getAttribute("quickGoodsList"); 
 		if(quickGoodsList!=null){
 			if(quickGoodsList.size() < 4){ // 상품 리스트에 상품 갯수가 3개 이하인 경우
 				for(int i=0; i<quickGoodsList.size(); i++){

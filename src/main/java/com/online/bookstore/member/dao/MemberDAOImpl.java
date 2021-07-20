@@ -35,6 +35,11 @@ public class MemberDAOImpl  implements MemberDAO{
 	public void deleteMember(String member_id) throws DataAccessException {
 		sqlSession.update("mapper.member.deleteMember",member_id);
 	}
+
+	@Override
+	public String selectMemberID(Map<String, String> searchIDMap) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.selectMemberID", searchIDMap);
+	}
 	
 	
 }

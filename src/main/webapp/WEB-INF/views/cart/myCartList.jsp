@@ -22,10 +22,6 @@ function calcGoodsPrice(bookPrice,obj){
 	var h_totalNum=document.getElementById("h_totalGoodsNum");
 	var h_totalPrice=document.getElementById("h_totalGoodsPrice");
 	
-	// 1. 모두 checked 상태로 계산된 값 가져오기
-	// 2. checked 해제될 때마다 마이너스(-) 처리해서 계산
-	// 3. 마이너스(-) 처리한 값 총 계산식에 반영
-	// 4. 히든(hidden) 값에 연산값 저장 -> 다시 check 될 때 연산된 값으로 계산될 수 있도록 세팅
 	if(obj.checked==true){
 		totalNum=Number(h_totalNum.value)+Number(goods_qty.value);
 		totalPrice=Number(h_totalPrice.value)+Number(goods_qty.value*bookPrice);
@@ -33,9 +29,12 @@ function calcGoodsPrice(bookPrice,obj){
 	}else{
 		totalNum=Number(h_totalNum.value)-Number(goods_qty.value);
 		totalPrice=Number(h_totalPrice.value)-Number(goods_qty.value)*bookPrice;
-		final_total_price = totalPrice
+		final_total_price = totalPrice;
 	}
-	
+	// 1. 모두 checked 상태로 계산된 값 가져오기
+	// 2. checked 해제될 때마다 마이너스(-) 처리해서 계산
+	// 3. 마이너스(-) 처리한 값 총 계산식에 반영
+	// 4. 히든(hidden) 값에 연산값 저장 -> 다시 check 될 때 연산된 값으로 계산될 수 있도록 세팅	
 	h_totalNum.value=totalNum;
 	h_totalPrice.value=totalPrice;
 	
@@ -132,7 +131,6 @@ function fn_order_each_goods(goods_id, goods_title, goods_price, fileName){
 }
 
 function fn_order_all_cart_goods(){
-//	alert("모두 주문하기");
 	var order_goods_qty;
 	var order_goods_id;
 	var objForm=document.frm_order_all_cart;
@@ -141,8 +139,6 @@ function fn_order_all_cart_goods(){
 	var checked_goods=objForm.checked_goods;
 	var length=checked_goods.length;
 	
-	
-	//alert(length);
 	if(length>1){
 		for(var i=0; i<length;i++){
 			if(checked_goods[i].checked==true){
@@ -150,17 +146,13 @@ function fn_order_all_cart_goods(){
 				order_goods_qty=cart_goods_qty[i].value;
 				cart_goods_qty[i].value="";
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
-				// alert(select_goods_qty[i].value);
-				console.log(cart_goods_qty[i].value);
 			}
 		}	
 	}else{
 		order_goods_id=checked_goods.value;
 		order_goods_qty=cart_goods_qty.value;
 		cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
-		// alert(select_goods_qty.value);
 	}
-		
  	objForm.method="post";
  	objForm.action="${contextPath}/order/orderAllCartGoods.do";
 	objForm.submit();

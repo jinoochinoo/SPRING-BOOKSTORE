@@ -21,7 +21,6 @@ import com.online.bookstore.goods.vo.ImageFileVO;
 public abstract class BaseController  {
 	
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\bookstore\\file_repo";
-	
 	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -40,8 +39,8 @@ public abstract class BaseController  {
 					if(file.getParentFile().mkdirs()){ // 경로 디렉토리 생성
 							file.createNewFile(); // 파일 생성
 					}
-				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); // temp 폴더에 임시 저장
+				} // temp 폴더에 임시 저장
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); 
 			}
 		}
 		return fileList;

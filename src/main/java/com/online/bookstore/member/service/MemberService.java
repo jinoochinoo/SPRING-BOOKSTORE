@@ -9,4 +9,5 @@ public interface MemberService {
 	public void addMember(MemberVO memberVO) throws Exception;
 	public String overlapped(String id) throws Exception;
 	public void removeMember(String memeber_id) throws Exception;
+	public String searchMemberID(Map<String, String> searchIDMap) throws Exception;
 }
