@@ -40,4 +40,9 @@ public class MemberServiceImpl implements MemberService {
 	public String searchMemberID(Map<String, String> searchIDMap) throws Exception {
 		return memberDAO.selectMemberID(searchIDMap);
 	}
+
+	@Override
+	public String searchMemberPW(Map<String, String> searchPWMap) throws Exception {
+		return memberDAO.selectMemberPW(searchPWMap);
+	}	
 }

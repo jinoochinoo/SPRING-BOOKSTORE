@@ -10,4 +10,5 @@ public interface MemberService {
 	public String overlapped(String id) throws Exception;
 	public void removeMember(String memeber_id) throws Exception;
 	public String searchMemberID(Map<String, String> searchIDMap) throws Exception;
+	public String searchMemberPW(Map<String, String> searchIDMap) throws Exception;
 }

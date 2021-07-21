@@ -91,5 +91,19 @@
 			and email1= #{email1}
 			and email2 = #{email2} 
 		]]>
-	</select>	 
+	</select>
+	
+	<select id="selectMemberPW" resultType="String"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			select member_pw
+			from shopping_member 
+			where member_name = #{member_name}
+			and email1= #{email1}
+			and email2 = #{email2}
+			and member_id = #{member_id}
+			and hp1 = #{hp1}
+			and hp2 = #{hp2}
+			and hp3 = #{hp3} 
+		]]>
+	</select>	 		 
 </mapper>

@@ -21,4 +21,5 @@ public interface MemberController {
 	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView seachMember(@RequestParam("key") String key, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity<Object> searchMemberID(@RequestParam Map<String, String> searchIDMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity<Object> searchMemberPW(@RequestParam Map<String, String> searchPWMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

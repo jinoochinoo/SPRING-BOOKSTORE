@@ -141,23 +141,41 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	@RequestMapping(value="/searchMemberID.do" ,method = RequestMethod.POST)
 	public ResponseEntity<Object> searchMemberID(@RequestParam Map<String, String> searchIDMap, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		System.out.println(searchIDMap.isEmpty());
-		
-		for(String key : searchIDMap.keySet()) {
-			String value = searchIDMap.get(key);
-			System.out.println(key + " : " + value);
-		}
+
+//		Map 안에 저장된 key, value 확인
+//		for(String key : searchPWMap.keySet()) {
+//			String value = searchPWMap.get(key);
+//			System.out.println(key + " : " + value);
+//		}
 		
 		String memberID =memberService.searchMemberID(searchIDMap);
-		System.out.println("memberID : " + memberID);
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("member_ID", memberID);
 		String jsonInfo = jsonObject.toString();
-		System.out.println("jsonInfo : " + jsonInfo);
 		
 		ResponseEntity<Object> resEntity = new ResponseEntity<Object>(jsonInfo, HttpStatus.OK);
 		return resEntity;
-	}	
+	}
+	
+	@Override
+	@RequestMapping(value="/searchMemberPW.do" ,method = RequestMethod.POST)
+	public ResponseEntity<Object> searchMemberPW(@RequestParam Map<String, String> searchPWMap, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+//		Map 안에 저장된 key, value 확인
+//		for(String key : searchPWMap.keySet()) {
+//			String value = searchPWMap.get(key);
+//			System.out.println(key + " : " + value);
+//		}
+		
+		String memberPW =memberService.searchMemberPW(searchPWMap);
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("member_PW", memberPW);
+		String jsonInfo = jsonObject.toString();
+		
+		ResponseEntity<Object> resEntity = new ResponseEntity<Object>(jsonInfo, HttpStatus.OK);
+		return resEntity;
+	}		
 }

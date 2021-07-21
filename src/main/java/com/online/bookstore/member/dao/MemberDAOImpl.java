@@ -41,5 +41,8 @@ public class MemberDAOImpl  implements MemberDAO{
 		return sqlSession.selectOne("mapper.member.selectMemberID", searchIDMap);
 	}
 	
-	
+	@Override
+	public String selectMemberPW(Map<String, String> searchPWMap) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.selectMemberPW", searchPWMap);
+	}	
 }

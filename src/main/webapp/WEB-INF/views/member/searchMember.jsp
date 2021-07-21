@@ -18,27 +18,63 @@ function fn_searchMember(type){
 		alert("이름, 이메일을 모두 입력하세요!");
 		return;
 	}
-	$.ajax({
-		type:"post",
-		async:false,
-		url:"${contextPath}/member/searchMemberID.do",
-		dataType:"json",
-		data:{
-			"member_name":_member_name,
-			"email1":_email1,
-			"email2":_email2
-		},
-		success:function(data){
-			if(data.member_ID == '' || !data.member_ID){
-				alert("해당 이름, 이메일로 등록된 아이디가 없습니다!");
-			} else{
-				alert("아이디를 찾았습니다! \n 아이디 : " + data.member_ID);
+	if(type == 'id'){
+		$.ajax({
+			type:"post",
+			async:false,
+			url:"${contextPath}/member/searchMemberID.do",
+			dataType:"json",
+			data:{
+				"member_name":_member_name,
+				"email1":_email1,
+				"email2":_email2
+			},
+			success:function(data){
+				if(data.member_ID == '' || !data.member_ID){
+					alert("해당 이름, 이메일로 등록된 아이디가 없습니다!");
+				} else{
+					alert("아이디를 찾았습니다! \n 아이디 : " + data.member_ID);
+				}
+			},
+			error:function(request,status,error){
+				alert("code = "+ request.status + "\n message = " + request.responseText + "\n error = " + error);
 			}
-		},
-		error:function(request,status,error){
-			alert("code = "+ request.status + "\n message = " + request.responseText + "\n error = " + error);
+		}); // end ajax
+	} else{
+		var _member_id = $("#member_id").val();
+		var _hp1 = $("#hp1").val();
+		var _hp2 = $("#hp2").val();
+		var _hp3 = $("#hp3").val();
+		if(!_hp1 || !_hp2 || !_hp3 || !_member_id){
+			alert("아이디, 휴대폰 번호를 입력하세요!" + _member_id + _hp1 + _hp2 + _hp3);
+			return;
 		}
-	}); // end ajax
+		$.ajax({
+			type:"post",
+			async:false,
+			url:"${contextPath}/member/searchMemberPW.do",
+			dataType:"json",
+			data:{
+				"member_name":_member_name,
+				"email1":_email1,
+				"email2":_email2,
+				"member_id":_member_id,
+				"hp1":_hp1,
+				"hp2":_hp2,
+				"hp3":_hp3
+			},
+			success:function(data){
+				if(data.member_PW == '' || !data.member_PW){
+					alert("해당 아이디, 이름, 이메일, 휴대폰 번호와 일치한 비밀번호가 없습니다!");
+				} else{
+					alert("비밀번호를 찾았습니다! \n 비밀번호 : " + data.member_PW);
+				}
+			},
+			error:function(request,status,error){
+				alert("code = "+ request.status + "\n message = " + request.responseText + "\n error = " + error);
+			}
+		}); // end ajax
+	}
 }
 
 function fn_emailSet(){
@@ -96,12 +132,16 @@ function fn_emailSet(){
 	<div align="center" style="padding:5px">
 	<table>
 		<tr>
+			<td class="fixed_join">아이디</td>
+			<td><input type="text" name="member_id" id="member_id"></td>
+		</tr>
+		<tr>
 			<td class="fixed_join">이름</td>
-			<td><input type="text" name="name" id="name"></td>
+			<td><input type="text" name="member_name" id="member_name"></td>
 		</tr>
 		<tr class="dot_line">
 			<td class="fixed_join">이메일</td>
-				<td><input size="10px" type="text" name="email1" /> @ <input  size="10px" type="text" name="email2" id="email2" />
+				<td><input size="10px" type="text" name="email1" id="email1" /> @ <input  size="10px" type="text" name="email2" id="email2" />
 						  <select name="emailList" id="emailList" onChange="fn_emailSet();" title="직접입력">
 									<option value="non">직접입력</option>
 									<option value="hanmail.net">hanmail.net</option>
@@ -119,7 +159,7 @@ function fn_emailSet(){
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">휴대폰번호</td>
-					<td><select  name="hp1">
+					<td><select  name="hp1" id="hp1">
 							<option>없음</option>
 							<option selected value="010">010</option>
 							<option value="011">011</option>
@@ -127,14 +167,12 @@ function fn_emailSet(){
 							<option value="017">017</option>
 							<option value="018">018</option>
 							<option value="019">019</option>
-					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3">
+					</select> - <input size="10px"  type="text" name="hp2" id="hp2"> - <input size="10px" type="text" name="hp3" id="hp3">
 				</tr>
 			</table>
-		<br><input type="submit" value="찾기" style="padding:5px">
+		<br><input type="button" value="찾기" onClick="fn_searchMember('pw')"  style="padding:5px">
 	</div>
 </form>
 </c:if>
-
-<div>${key}</div>
 </body>
 </html>
